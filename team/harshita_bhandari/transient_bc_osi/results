@@ -1,0 +1,23 @@
+metric,value,units,notes
+mesh_cells,1449529,cells,Strut-resolved lumen mesh
+cardiac_period,0.8,s,One pulsatile cycle
+time_step,0.04,s,Fixed timestep
+number_of_timesteps,20,-,Total simulated duration 0.8 s
+max_iterations_per_timestep,20,-,Transient solver setting
+inlet_mass_flow,2.35905437E-04,kg/s,Final timestep
+outlet_mass_flow,-2.35891215E-04,kg/s,Final timestep
+net_mass_imbalance,1.42225E-08,kg/s,Final timestep
+relative_mass_imbalance,0.00603,percent,Calculated from inlet and outlet mass flow
+inlet_static_pressure,223.93649,Pa,Area-weighted average at final timestep
+outlet_static_pressure,0,Pa,Area-weighted average at final timestep
+pressure_drop,223.93649,Pa,Final timestep
+maximum_velocity,0.2171524,m/s,Instantaneous maximum at t=0.8 s
+wss_area_weighted_average,1.304153,Pa,Native Fluent WSS at final timestep
+wss_minimum,0.000605337,Pa,Native Fluent WSS at final timestep
+wss_maximum,24.27308,Pa,Native Fluent WSS at final timestep
+tawss_area_weighted_average,2.755128,Pa,Computed over the 0.8 s cycle
+tawss_minimum,0.01310555,Pa,Computed over the 0.8 s cycle
+tawss_maximum,80.7746,Pa,Computed over the 0.8 s cycle
+osi_area_weighted_average,8.132387E-05,-,Computed over the 0.8 s cycle
+osi_minimum,3.107374E-09,-,Computed over the 0.8 s cycle
+osi_maximum,0.4807748,-,Computed over the 0.8 s cycle

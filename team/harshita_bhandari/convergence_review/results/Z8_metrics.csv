@@ -1,0 +1,17 @@
+metric,value,unit_or_note
+time_step,0.05,s
+time_steps_per_run,20,
+iterations_per_time_step,20,
+total_iterations_two_runs,800,
+first_run_final_continuity_residual,1.0734E-03,scaled residual
+first_run_final_x_velocity_residual,1.4702E-03,scaled residual
+first_run_final_y_velocity_residual,5.5727E-04,scaled residual
+second_run_final_continuity_residual,7.4953E-04,scaled residual
+second_run_final_x_velocity_residual,1.4866E-03,scaled residual
+second_run_final_y_velocity_residual,5.0320E-04,scaled residual
+OSI_facet_minimum,3.753186E-10,dimensionless
+OSI_area_weighted_average,0.1000194,dimensionless
+OSI_facet_maximum,0.4996124,dimensionless
+TAWSS_facet_minimum,0.006772572,Pa
+TAWSS_area_weighted_average,2.475312,Pa
+TAWSS_facet_maximum,929.701,Pa

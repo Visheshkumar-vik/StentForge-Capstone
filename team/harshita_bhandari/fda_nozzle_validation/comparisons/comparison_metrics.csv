@@ -1,0 +1,5 @@
+quantity,location,experimental_value,cfd_value,absolute_difference,percent_error,units,notes
+centreline_velocity,,,,,,,pending experimental dataset
+pressure,,,,,,,pending experimental dataset
+pressure_drop,,,,,,,pending experimental dataset
+velocity_profile_rmse,,,,,,,pending experimental dataset

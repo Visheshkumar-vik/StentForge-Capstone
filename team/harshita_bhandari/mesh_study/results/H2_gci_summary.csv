@@ -1,0 +1,3 @@
+Umean_m_per_s,Quantity,Coarse,Medium,Fine,r21_fine_medium,r32_medium_coarse,Fitted_apparent_order_p,Convergence_interpretation,Classical_GCI_fine_pct,Reason
+0.10,DeltaP_segment,155.90174,147.75285,140.17735,1.3478562886272392,1.6502339166729443,-1.13404383524931,"Monotonic trend, but no positive Richardson apparent order",NOT REPORTED,Three grids are not demonstrably in the asymptotic Richardson range
+0.26,DeltaP_segment,590.17564,578.1376,561.06906,1.3478562886272392,1.6502339166729443,-2.25290338938382,"Monotonic trend, but no positive Richardson apparent order",NOT REPORTED,Three grids are not demonstrably in the asymptotic Richardson range

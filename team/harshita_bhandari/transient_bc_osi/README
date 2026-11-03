@@ -1,0 +1,64 @@
+## Final H3 transient run – 3 October 2026
+
+A strut-resolved transient CFD implementation test was completed using the
+released-stent lumen geometry.
+
+### Run configuration
+
+- Mesh: 1,449,529 cells
+- Cardiac period: 0.8 s
+- Time step: 0.04 s
+- Number of time steps: 20
+- Maximum iterations per time step: 20
+- Inlet: pulsatile `inlet_velocity` UDF
+- Outlet: 0 Pa gauge pressure
+- Artery wall: no-slip
+- Strut wall: no-slip
+- TAWSS / OSI: `osi.c` UDF
+- Solver: transient pressure-based, Coupled pressure–velocity scheme
+
+### Recorded results
+
+| Quantity | Result |
+|---|---:|
+| Inlet mass flow | 2.35905437E-04 kg/s |
+| Outlet mass flow | -2.35891215E-04 kg/s |
+| Relative mass imbalance | 0.00603% |
+| Inlet static pressure | 223.93649 Pa |
+| Outlet static pressure | 0 Pa |
+| Pressure drop | 223.93649 Pa |
+| Maximum velocity at t = 0.8 s | 0.2171524 m/s |
+| Instantaneous WSS average | 1.304153 Pa |
+| Instantaneous WSS minimum | 0.000605337 Pa |
+| Instantaneous WSS maximum | 24.27308 Pa |
+| TAWSS average | 2.755128 Pa |
+| TAWSS minimum | 0.01310555 Pa |
+| TAWSS maximum | 80.7746 Pa |
+| OSI average | 8.132387E-05 |
+| OSI minimum | 3.107374E-09 |
+| OSI maximum | 0.4807748 |
+
+### Interpretation
+
+The final-step mass imbalance was approximately 0.006%, indicating strong
+mass conservation for the completed transient solution.
+
+The wall-averaged OSI was very small, indicating predominantly unidirectional
+wall shear over most of the artery. Local OSI reached approximately 0.481,
+showing that highly oscillatory or reversing shear occurred in small localised
+regions around the stented/stenotic section.
+
+TAWSS and OSI contours, instantaneous WSS, velocity, pressure, mass-flow and
+convergence evidence are stored under `evidence/`.
+
+### Important limitation
+
+This H3 run was performed as an implementation and integration test over one
+0.8 s cardiac cycle.
+
+It demonstrates that the pulsatile inlet, strut-resolved CFD model and
+TAWSS/OSI workflow can operate together successfully. It does not by itself
+establish cycle-to-cycle periodicity or time-step independence.
+
+The final campaign implementation uses multiple cardiac cycles and evaluates
+the final cycle after the transient solution has developed.

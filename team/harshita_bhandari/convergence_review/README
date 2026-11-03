@@ -1,0 +1,66 @@
+# Z8 – Transient CFD Convergence Review
+
+**Author:** Harshita Bhandari
+
+## Objective
+
+Z8 documents the convergence and integration review of the transient Fluent workflow used for pulsatile inlet flow and OSI/TAWSS calculation.
+
+The test case was used to verify that:
+
+- the transient inlet UDF could be compiled and applied;
+- the OSI/TAWSS UDF could be compiled and executed;
+- OSI and TAWSS quantities could be extracted from the wall;
+- solver behaviour could be reviewed before transferring the workflow to H3.
+
+## Folder contents
+
+### `analysis/`
+Contains the detailed convergence and verification review.
+
+### `results/`
+Contains the numerical summary of residuals, OSI and TAWSS values.
+
+### `evidence/osi/`
+Contains Fluent screenshots showing:
+
+- OSI wall contour
+- area-weighted average OSI
+- minimum OSI
+- maximum OSI
+
+### `evidence/tawss/`
+Contains Fluent screenshots showing:
+
+- TAWSS wall contour
+- area-weighted average TAWSS
+- minimum TAWSS
+- maximum TAWSS
+
+### `evidence/residuals/`
+Residual convergence was reviewed from the recorded Fluent solver output/log. A standalone residual-history screenshot was not retained.
+
+## Main results
+
+| Quantity | Result |
+|---|---:|
+| OSI minimum | 3.753186E-10 |
+| OSI area-weighted average | 0.1000194 |
+| OSI maximum | 0.4996124 |
+| TAWSS minimum | 0.006772572 Pa |
+| TAWSS area-weighted average | 2.475312 Pa |
+| TAWSS maximum | 929.701 Pa |
+
+The transient calculation completed successfully, but the final scaled residuals remained approximately in the 1E-03 to 1E-04 range and therefore did not satisfy the project's strict 1E-05 residual target.
+
+## Interpretation
+
+Z8 demonstrates successful implementation of the inlet and OSI/TAWSS workflow, but it is not presented as a final validated CFD solution.
+
+The review identified three items for the production workflow:
+
+1. use the confirmed 0.8 s cardiac period;
+2. assess convergence using physical monitors and cycle-to-cycle repeatability in addition to residuals;
+3. assess temporal-step sensitivity for the final production case.
+
+The corrected production implementation is carried forward under H3.
