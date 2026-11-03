@@ -1,0 +1,33 @@
+case,quantity,notebook,pipeline_27Sep,difference,pass_mark,result
+L7_blocked_U0p10,dp full domain [Pa],300.0980452680905,300.098,+0.00%,1%,PASS
+L7_blocked_U0p10,"WSS mean, segment [Pa]",1.5694172838262028,1.56942,-0.00%,2%,PASS
+L7_blocked_U0p10,"WSS max, segment [Pa]",16.78242281,16.7824,+0.00%,,
+L7_blocked_U0p10,"WSS mean, whole wall [Pa]",1.4250380800382008,1.42504,-0.00%,,
+L7_blocked_U0p10,low-WSS area fraction < 0.5 Pa,0.1433253905235761,0.143325,+0.00 points,,
+L7_blocked_U0p10,low-WSS area fraction < 0.4 Pa,0.10607988626498467,0.10608,-0.00 points,,
+L7_blocked_U0p10,low-WSS area fraction < 1 Pa,0.31461168977926807,0.314612,-0.00 points,,
+L7_blocked_U0p10,iterations,50.0,50.0,+0,,
+L7_blocked_U0p26,dp full domain [Pa],883.9210081934096,883.92,+0.00%,1%,PASS
+L7_blocked_U0p26,"WSS mean, segment [Pa]",4.247051471701561,4.24705,+0.00%,2%,PASS
+L7_blocked_U0p26,"WSS max, segment [Pa]",60.45359671,60.4536,-0.00%,,
+L7_blocked_U0p26,"WSS mean, whole wall [Pa]",3.4052026913379687,3.4052,+0.00%,,
+L7_blocked_U0p26,low-WSS area fraction < 0.5 Pa,0.10105564731623397,0.101056,-0.00 points,,
+L7_blocked_U0p26,low-WSS area fraction < 0.4 Pa,0.07925836121415196,0.0792584,-0.00 points,,
+L7_blocked_U0p26,low-WSS area fraction < 1 Pa,0.20796680354257044,0.207967,-0.00 points,,
+L7_blocked_U0p26,iterations,70.0,65.0,+5,,
+L7_stented_U0p10,dp full domain [Pa],240.4612108449537,240.458,+0.00%,1%,PASS
+L7_stented_U0p10,"WSS mean, segment [Pa]",1.4948649841426784,1.49484,+0.00%,2%,PASS
+L7_stented_U0p10,"WSS max, segment [Pa]",2.554100967,2.55407,+0.00%,,
+L7_stented_U0p10,"WSS mean, whole wall [Pa]",1.4699001845410058,1.46988,+0.00%,,
+L7_stented_U0p10,low-WSS area fraction < 0.5 Pa,0.0,0.0,+0.00 points,,
+L7_stented_U0p10,low-WSS area fraction < 0.4 Pa,0.0,0.0,+0.00 points,,
+L7_stented_U0p10,low-WSS area fraction < 1 Pa,0.0,0.0,+0.00 points,,
+L7_stented_U0p10,iterations,57.0,63.0,-6,,
+L7_stented_U0p26,dp full domain [Pa],600.6152419161832,600.62,-0.00%,1%,PASS
+L7_stented_U0p26,"WSS mean, segment [Pa]",3.7383723048136743,3.73844,-0.00%,2%,PASS
+L7_stented_U0p26,"WSS max, segment [Pa]",7.684229358,7.68438,-0.00%,,
+L7_stented_U0p26,"WSS mean, whole wall [Pa]",3.6678525019757675,3.6679,-0.00%,,
+L7_stented_U0p26,low-WSS area fraction < 0.5 Pa,0.0,0.0,+0.00 points,,
+L7_stented_U0p26,low-WSS area fraction < 0.4 Pa,0.0,0.0,+0.00 points,,
+L7_stented_U0p26,low-WSS area fraction < 1 Pa,0.0,0.0,+0.00 points,,
+L7_stented_U0p26,iterations,93.0,87.0,+6,,

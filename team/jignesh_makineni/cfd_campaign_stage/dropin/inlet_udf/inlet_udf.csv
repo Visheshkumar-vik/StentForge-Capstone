@@ -1,0 +1,9 @@
+key,value,units,note
+udf_file,vinlet_udf.c,-,the UDF source in this folder
+profile_name,inlet_velocity,-,the DEFINE_PROFILE name in the UDF (put on the inlet velocity magnitude)
+period_s,0.8,s,cardiac period (19_CFD_SETTINGS)
+time_step_s,0.01,s,must divide period_s exactly (80 steps per cycle)
+cycles,3,-,cycles solved; results are the last cycle
+iterations_per_step,20,-,iterations per time step
+mean_velocity_mps,0.21235,m/s,cycle-mean inlet velocity of the UDF waveform: the row's U and the mass-flow gate
+periodic_tol,0.01,-,CONVERGED when the last-cycle mean dp is within this fraction of the cycle before

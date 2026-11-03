@@ -1,0 +1,17 @@
+case,lesion,picked,path,throat_z_mm,start_z_mm,end_z_mm,length_mm,reference_r_mm,throat_r_smoothed_mm,min_r_raw_mm,narrowing,narrowing_raw,narrowing_mesh,calcium_mm3,wall_median_hu,near_ostium,near_tip,near_bifurcation,mesh_disagrees,runoff_mm,short_runoff,reported_severity,throat_x,throat_y,throat_z
+Diseased_7,L1,False,5,0.0,0.0,2.27,2.27,2.025,0.537,0.537,0.735,0.735,0.749,0.0,128.0,True,False,False,False,187.4,False,0.3,193.54,189.65,-123.02
+Diseased_7,L2,True,6,153.48,152.1,155.62,3.52,0.346,0.127,0.107,0.634,0.694,0.635,0.0,56.0,False,False,False,False,4.5,True,0.3,204.73,221.34,-186.48
+Diseased_7,L3,False,3,18.85,17.43,20.34,2.91,1.191,0.453,0.437,0.619,0.634,0.605,0.0,42.0,False,False,False,False,55.7,False,0.3,219.21,222.74,-120.48
+Diseased_7,L4,False,1,67.22,65.73,67.44,1.71,0.544,0.215,0.207,0.605,0.615,0.474,0.0,2.0,False,True,False,False,0.0,True,0.3,248.49,182.06,-134.44
+Diseased_7,L5,False,4,50.82,48.69,52.44,3.75,0.36,0.147,0.136,0.591,0.616,0.499,0.0,40.0,False,False,False,False,7.1,False,0.3,229.67,240.88,-141.86
+Diseased_7,L6,False,8,139.74,135.79,139.74,3.95,0.593,0.268,0.18,0.549,0.696,0.432,0.0,14.0,False,True,False,False,0.0,True,0.3,195.49,232.03,-169.25
+Diseased_7,L7,False,0,148.15,146.89,151.84,4.95,0.739,0.422,0.409,0.429,0.448,0.453,0.0,-19.0,False,False,False,False,6.7,False,0.3,245.18,149.91,-200.29
+Diseased_7,L8,False,6,146.76,145.17,147.79,2.62,0.487,0.288,0.279,0.409,0.433,0.322,0.0,0.0,False,False,False,False,12.3,False,0.3,201.68,226.85,-184.74
+Diseased_7,L9,False,4,57.1,56.49,57.87,1.39,0.263,0.162,0.141,0.381,0.45,0.405,0.0,59.0,False,True,False,False,1.6,True,0.3,229.84,243.3,-147.39
+Diseased_7,L10,False,2,24.44,22.9,25.63,2.73,0.818,0.507,0.492,0.38,0.39,0.377,0.0,94.0,False,False,False,False,2.9,True,0.3,228.65,216.12,-118.09
+Diseased_7,L11,False,1,35.42,34.97,36.03,1.06,0.702,0.461,0.447,0.343,0.361,0.336,0.0,37.0,False,False,False,False,31.4,False,0.3,236.68,206.85,-121.68
+Diseased_7,L12,False,5,179.97,179.73,180.34,0.61,0.426,0.29,0.264,0.32,0.38,0.353,0.0,52.0,False,False,False,False,9.3,False,0.3,227.36,217.81,-187.1
+Diseased_7,L13,False,5,158.22,157.37,158.49,1.12,0.701,0.484,0.464,0.31,0.341,0.294,0.0,18.0,False,False,False,False,31.1,False,0.3,209.72,229.26,-184.38
+Diseased_7,L14,False,0,135.78,135.42,136.37,0.95,0.768,0.533,0.507,0.306,0.34,0.307,0.0,11.0,False,False,False,False,22.2,False,0.3,245.65,145.06,-190.42
+Diseased_7,L15,False,1,46.14,45.74,46.57,0.83,0.727,0.522,0.507,0.282,0.302,0.245,0.0,40.0,False,False,False,False,20.9,False,0.3,242.99,199.44,-125.04
+Diseased_7,L16,False,5,52.24,51.89,52.57,0.69,1.627,1.196,1.187,0.265,0.27,0.184,0.0,55.0,False,False,False,False,137.1,False,0.3,157.8,184.54,-155.36

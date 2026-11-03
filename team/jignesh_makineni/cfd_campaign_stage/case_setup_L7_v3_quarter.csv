@@ -1,0 +1,51 @@
+key,value,units,source,note
+# ---- fluid ----,,,,
+density,1050,kg/m3,19_CFD_SETTINGS_vishesh.md,other coronary papers use 1060
+viscosity_model,carreau,-,19_CFD_SETTINGS_vishesh.md,carreau | newtonian
+carreau_mu0,0.056,Pa.s,Cho & Kensey 1991 (via 19_CFD_SETTINGS_vishesh.md),zero-shear viscosity
+carreau_mu_inf,0.00345,Pa.s,Cho & Kensey 1991 (via 19_CFD_SETTINGS_vishesh.md),infinite-shear viscosity (also the newtonian value if viscosity_model = newtonian)
+carreau_lambda,3.313,s,Cho & Kensey 1991 (via 19_CFD_SETTINGS_vishesh.md),relaxation time
+carreau_n,0.3568,-,Cho & Kensey 1991 (via 19_CFD_SETTINGS_vishesh.md),power-law index
+# ---- geometry and mesh ----,,,,
+mesh_units,m,-,MODELLING CHOICE,units the .msh was written in: m or mm (mm is scaled by 1e-3 on read); strut meshes are mm
+R0,0.00122,m,19_CFD_SETTINGS_vishesh.md: reference lumen (L7),healthy lumen radius (RVD 2.44 mm); used for the inlet-area gate and Reynolds number
+sector_fraction,0.25,-,08_cfd stented L7 case (quarter; cfd_pipeline_v3: stented_no_strut quarter),quarter vessel: 2 symmetry planes x = 0 and y = 0
+axis_origin,0;0;0,m,pipeline domain frame (inlet at z = 0),a point on the vessel axis
+axis_direction,0;0;1,-,pipeline domain frame,vessel axis direction (flow direction)
+stenosis_area,0.73,-,19_CFD_SETTINGS_vishesh.md: reference lumen (L7),73 % area / 48 % diameter; used for the throat radius and Reynolds number only
+# ---- zone names in the .msh (exact names; semicolon-separated) ----,,,,
+zone_inlet,inlet,-,cfd_run_vishesh.setup_boundaries (zone renaming),must match the face-zone name in the mesh exactly
+zone_outlet,outlet,-,cfd_run_vishesh.setup_boundaries (zone renaming),
+zone_wall,wall,-,cfd_run_vishesh.setup_boundaries (zone renaming),the artery wall; strut meshes use wall_artery and wall_strut
+zone_symmetry,sym-1;sym-2,-,cfd_run_vishesh.setup_boundaries (zone renaming),the two quarter-model symmetry planes
+# ---- boundary conditions ----,,,,
+inlet_mean_velocity,0.10;0.26,m/s,19_CFD_SETTINGS_vishesh.md: Kaufmann 2005,area-mean; 0.10 rest and 0.26 hyperaemic; each run in turn. 0.5 only as a labelled sensitivity
+inlet_profile,parabolic,-,19_CFD_SETTINGS_vishesh.md,parabolic | uniform; may become udf later (H3)
+outlet_gauge_pressure,0,Pa,19_CFD_SETTINGS_vishesh.md,
+# ---- flow regime ----,,,,
+viscous_model,laminar,-,OPEN: Decision 7 (laminar per 19_CFD_SETTINGS / pipeline yaml; standard k-omega SST per 08_CFD_VV_REVIEW s8),laminar | sst (standard k-omega SST); laminar for now only so Phase 1 matches the laminar 08_cfd cases; final choice is Decision 7
+inlet_turb_intensity,0.001,-,pilot P9 (audit),0.1 %; used only if viscous_model is sst
+inlet_hydraulic_diameter,0.00244,m,= 2 * R0,used only if viscous_model is sst
+# ---- solver and numerics ----,,,,
+time,steady,-,19_CFD_SETTINGS_vishesh.md,steady only in this version; transient for TAWSS / OSI later (Phase 3)
+p_v_coupling,Coupled,-,19_CFD_SETTINGS_vishesh.md (Decision 2; 2 Oct),
+gradient,least-square-cell-based,-,audit 5.8,
+disc_pressure,second-order,-,19_CFD_SETTINGS_vishesh.md,
+disc_convective,second-order-upwind,-,19_CFD_SETTINGS_vishesh.md,momentum and any turbulence equations
+residual_target,1e-5,-,19_CFD_SETTINGS_vishesh.md,Fluent scaled residuals (criterion type absolute; scale on and normalise off to be confirmed in Task 0.3); pass rule with dp-flat (Decision 3)
+max_iterations,600,-,19_CFD_SETTINGS_vishesh.md,
+dp_flat_window,20,iterations,cfd_pipeline_v3_vishesh.yaml: convergence,pass rule = residuals at residual_target AND inlet-pressure span <= dp_flat_tol over the last dp_flat_window iterations (Decision 3)
+dp_flat_tol,0.05,Pa,cfd_pipeline_v3_vishesh.yaml: convergence,see dp_flat_window
+stability_tol,1e-4,-,MODELLING CHOICE,reported check only (Decision 3): max relative monitor spread over the last stability_window
+stability_window,0.10,-,MODELLING CHOICE,reported check only (Decision 3)
+mass_imbalance_tol,1e-4,-,MODELLING CHOICE,reported check only (Decision 3)
+# ---- pre-solve gates ----,,,,
+inlet_area_tol,0.05,-,Phase 1 (2 Oct): the 19-face stented inlet is 3.6 % under quarter pi R0^2,measured inlet area vs sector_fraction * pi * R0^2
+inlet_mass_flow_tol,0.02,-,Phase 1 (2 Oct): the 19-face stented inlet delivers +1.54 % with the pipeline profile,initialised inlet mass flow vs rho * U * sector_fraction * pi * R0^2 (v3 nominal flow)
+# ---- outputs ----,,,,
+segment_z_start,0.0366,m,extension max(0.06 Re D; 15 D) = 36.6 mm (cfd_v2_vishesh.extension_mm); H2 segment 36.6-61.6 mm,start of the 25 mm artery segment (inlet at z = 0)
+segment_length,0.025,m,19_CFD_SETTINGS: artery 25 mm,segment for dp_segment and the WSS statistics
+wss_sampling,face,-,Decision 4 (team; 2 Oct),face values area-weighted; artery wall only over the 25 mm segment; strut wall reported separately on strut meshes
+low_wss_thresholds,0.5;0.4;1.0,Pa,19_CFD_SETTINGS_vishesh.md: haemodynamic outputs,area fraction of the segment artery wall below each value; 0.5 is the headline
+bc_stage,,-,Plan B1 (H3),path to a module with apply(session; case); blank = none
+export_field,no,-,MODELLING CHOICE,yes = also export every interior node (large for 3D)

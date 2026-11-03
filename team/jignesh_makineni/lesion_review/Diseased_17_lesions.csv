@@ -1,0 +1,6 @@
+case,lesion,picked,path,throat_z_mm,start_z_mm,end_z_mm,length_mm,reference_r_mm,throat_r_smoothed_mm,min_r_raw_mm,narrowing,narrowing_raw,narrowing_mesh,calcium_mm3,wall_median_hu,near_ostium,near_tip,near_bifurcation,mesh_disagrees,runoff_mm,short_runoff,reported_severity,throat_x,throat_y,throat_z
+Diseased_17,L1,False,6,0.0,0.0,1.18,1.18,1.628,0.477,0.477,0.707,0.707,0.29,0.0,457.0,True,False,False,True,51.9,False,0.25,184.67,232.91,-109.93
+Diseased_17,L2,False,9,111.8,110.77,111.8,1.03,0.893,0.428,0.428,0.521,0.523,0.617,0.0,60.0,False,True,False,False,0.0,True,0.25,241.43,207.83,-183.94
+Diseased_17,L3,False,4,154.57,153.56,154.57,1.01,0.827,0.463,0.463,0.44,0.464,nan,0.0,14.0,False,True,False,True,0.0,True,0.25,176.19,234.37,-179.86
+Diseased_17,L4,False,6,53.03,52.45,53.03,0.58,0.9,0.581,0.581,0.355,0.363,nan,0.0,151.0,False,True,False,True,0.0,True,0.25,203.26,207.95,-134.1
+Diseased_17,L5,False,0,15.44,14.78,15.85,1.08,0.989,0.71,0.687,0.282,0.308,0.807,0.0,77.0,False,False,False,True,15.8,False,0.25,166.48,200.05,-116.84

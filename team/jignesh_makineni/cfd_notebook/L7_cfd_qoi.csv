@@ -1,0 +1,5 @@
+case,lumen,inlet_velocity_mps,domain,flow_model,cells,min_orthogonal_quality,iterations,converged,final_continuity_residual,dp_change_last_20_iter_pa,pressure_drop_pa,wss_max_pa,wss_area_mean_pa,low_wss_area_frac_lt_0.5pa,low_wss_area_frac_lt_0.4pa,low_wss_area_frac_lt_1.0pa,wss_region,wss_area_mean_whole_wall_pa,reynolds_carreau_wall,reynolds_mu_inf
+L7_blocked_U0p10,blocked,0.1,full 360,laminar,142709,0.446033,50,True,3.5652e-07,0.0406648,300.098,16.7824,1.56942,0.143325,0.10608,0.314612,25 mm artery segment wall,1.42504,63.4793,74.2609
+L7_blocked_U0p26,blocked,0.26,full 360,laminar,142709,0.446033,65,True,5.8324e-06,0.0448847,883.92,60.4536,4.24705,0.101056,0.0792584,0.207967,25 mm artery segment wall,3.4052,176.834,193.078
+L7_stented_U0p10,stented,0.1,quarter (2 symmetry planes),laminar,24573,0.180863,63,True,3.0101e-06,0.044481,240.458,2.55407,1.49484,0,0,0,25 mm artery segment wall,1.46988,63.4793,74.2609
+L7_stented_U0p26,stented,0.26,quarter (2 symmetry planes),laminar,24573,0.180863,87,True,5.5821e-06,0.0480622,600.62,7.68438,3.73844,0,0,0,25 mm artery segment wall,3.6679,176.834,193.078

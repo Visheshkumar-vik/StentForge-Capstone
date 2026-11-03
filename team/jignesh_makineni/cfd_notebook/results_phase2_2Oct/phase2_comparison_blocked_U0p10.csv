@@ -1,0 +1,11 @@
+case,quantity,notebook,pipeline_27Sep,difference,pass_mark,result
+L7_blocked_U0p10,dp full domain [Pa],297.262083192909,300.098,-0.94%,1%,PASS
+L7_blocked_U0p10,"WSS mean, segment [Pa]",1.5481052567650389,1.56942,-1.36%,2%,PASS
+L7_blocked_U0p10,"WSS max, segment [Pa]",16.55976917,16.7824,-1.33%,,
+L7_blocked_U0p10,"WSS mean, whole wall [Pa]",1.4141489955647122,1.42504,-0.76%,,
+L7_blocked_U0p10,low-WSS area fraction < 0.5 Pa,0.16487597199058296,0.143325,+2.16 points,,
+L7_blocked_U0p10,low-WSS area fraction < 0.4 Pa,0.11764024983966435,0.10608,+1.16 points,,
+L7_blocked_U0p10,low-WSS area fraction < 1 Pa,0.3209997702330485,0.314612,+0.64 points,,
+L7_blocked_U0p10,iterations,46.0,50.0,-4,,
+L7_blocked_U0p10,cells,195893.0,142709.0,+53184,,
+L7_blocked_U0p10,min orthogonal quality,0.2086071411664973,0.446033,-53.23%,,

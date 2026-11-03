@@ -1,0 +1,13 @@
+case,lesion,picked,path,throat_z_mm,start_z_mm,end_z_mm,length_mm,reference_r_mm,throat_r_smoothed_mm,min_r_raw_mm,narrowing,narrowing_raw,narrowing_mesh,calcium_mm3,wall_median_hu,near_ostium,near_tip,near_bifurcation,mesh_disagrees,runoff_mm,short_runoff,reported_severity,throat_x,throat_y,throat_z
+Diseased_3,L1,True,3,75.12,73.44,76.6,3.16,0.853,0.245,0.232,0.712,0.728,0.765,0.24,-74.0,False,False,False,False,39.1,False,0.6,242.63,289.19,-114.13
+Diseased_3,L2,False,5,138.25,131.01,138.25,7.23,0.597,0.192,0.171,0.679,0.714,0.809,0.0,-37.0,False,True,False,False,0.0,True,0.6,261.46,247.09,-145.77
+Diseased_3,L3,False,7,156.88,155.67,156.88,1.21,0.699,0.341,0.324,0.513,0.535,0.521,0.0,3.0,False,True,False,False,0.0,True,0.6,199.2,309.8,-183.51
+Diseased_3,L4,False,0,107.52,106.37,107.52,1.15,0.761,0.415,0.415,0.454,0.457,0.438,0.0,-63.0,False,True,False,False,0.0,True,0.6,205.21,337.58,-164.95
+Diseased_3,L5,False,4,84.06,82.46,87.73,5.27,1.287,0.722,0.717,0.438,0.443,0.314,0.37,-24.0,False,False,False,False,89.3,False,0.6,241.54,276.75,-113.26
+Diseased_3,L6,False,2,111.23,109.58,111.23,1.65,0.575,0.355,0.355,0.383,0.391,0.319,0.0,85.0,False,True,False,False,0.0,True,0.6,266.24,290.51,-144.45
+Diseased_3,L7,False,7,144.36,140.61,145.22,4.61,0.773,0.491,0.479,0.365,0.381,0.396,0.0,-32.0,False,False,False,False,11.7,False,0.6,188.94,312.24,-178.04
+Diseased_3,L8,False,6,0.0,0.0,1.17,1.17,1.55,1.095,1.095,0.294,0.294,-0.055,0.0,258.0,True,False,False,True,159.4,False,0.6,186.55,266.78,-114.43
+Diseased_3,L9,False,0,83.43,82.54,83.61,1.07,0.766,0.543,0.532,0.291,0.308,0.565,0.0,60.0,False,False,False,True,23.9,False,0.6,210.78,342.58,-143.41
+Diseased_3,L10,False,3,82.03,81.68,82.26,0.58,0.878,0.627,0.61,0.287,0.305,0.311,0.0,-18.0,False,False,False,False,33.4,False,0.6,246.57,284.08,-115.79
+Diseased_3,L11,False,6,152.52,152.15,152.69,0.54,0.65,0.474,0.468,0.27,0.279,0.211,0.0,34.0,False,False,False,False,7.9,False,0.6,214.46,268.3,-186.9
+Diseased_3,L12,False,0,87.93,87.81,88.48,0.67,0.754,0.553,0.519,0.266,0.313,0.325,0.0,66.0,False,False,False,False,19.0,False,0.6,208.33,341.73,-147.01

@@ -1,0 +1,112 @@
+{
+  "tag": "L7_lumen_blocked_full360_v3_laminar_U0p10",
+  "created": "2026-10-02T16:06:05",
+  "fluent": "Ansys Fluent 2026 R1",
+  "procs": 4,
+  "mesh": "E:\\RMIT\\Capstone\\PyANSYS\\COLLAB---CAPSTONE\\share_team\\cfd_jignesh\\artery_runs_v3\\meshes\\L7_lumen_blocked_full360_v3.msh.h5",
+  "setup_csv": "case_setup_L7_v3.csv",
+  "inlet_u": 0.1,
+  "inlet_profile": "parabolic",
+  "inlet_expression": "max(0[m/s], 2*0.1[m/s]*(1-(Position.x^2+Position.y^2)/(0.00122[m])^2))",
+  "viscous_model": "laminar",
+  "U": 0.1,
+  "A_inlet_nominal_m2": 4.675946505603048e-06,
+  "Q_full_vessel_mL_min": 28.055679033618283,
+  "Re_mu_inf": 74.26086956521739,
+  "Re_carreau_wall": 63.47932385975051,
+  "throat_radius_mm": 0.6339305955702091,
+  "U_throat_mean": 0.37037037037037035,
+  "A_inlet": 4.627608634928473e-06,
+  "A_inlet_ratio": 0.9896624414721912,
+  "R_inlet": 0.0012136777075843525,
+  "mdot_target": 0.00049097438308832,
+  "mdot_init": 0.000493776600415112,
+  "iterations": 46,
+  "extra_batches": 11,
+  "final_residuals": {
+    "continuity": 6.13291891606839e-07,
+    "x-velocity": 5.697860222364804e-10,
+    "y-velocity": 5.126664756647306e-10,
+    "z-velocity": 4.456760315366508e-09
+  },
+  "residuals_met": true,
+  "dp_flat": true,
+  "dp_span_last_window_pa": 0.039816164844410196,
+  "converged": true,
+  "monitor_spread": {
+    "mflow_inlet": 0.0,
+    "mflow_outlet": 4.438410786881991e-06,
+    "p_inlet": 4.256276282584966e-06,
+    "wss_wall_areaavg": 2.102594970113816e-06,
+    "wss_wall_max": 1.612515330413606e-06,
+    "vmax": 1.0914746496602964e-06
+  },
+  "spread_ok": true,
+  "mass_imbalance": 4.4435006805818657e-07,
+  "mass_ok": true,
+  "dp_full_pa": 297.262083192909,
+  "segment_z_m": [
+    0.0366,
+    0.0616
+  ],
+  "p_seg_up_pa": 214.662537888368,
+  "p_seg_dn_pa": 80.75930298789477,
+  "dp_segment25_pa": 133.90323490047325,
+  "wss_wall_areaavg_pa": 1.414148995558315,
+  "wss_wall_max_pa": 16.55976867675781,
+  "wss_segment": {
+    "n_faces": 6224,
+    "area_m2": 0.000183202757366751,
+    "wss_mean_pa": 1.5481052567650389,
+    "wss_max_pa": 16.55976917,
+    "wss_min_pa": 0.003151787454,
+    "low_wss_frac_lt_0.5": 0.16487597199058296,
+    "low_wss_frac_lt_0.4": 0.11764024983966435,
+    "low_wss_frac_lt_1": 0.3209997702330485
+  },
+  "wss_whole_artery_wall": {
+    "n_faces": 25211,
+    "area_m2": 0.0007423011074820091,
+    "wss_mean_pa": 1.4141489955647122,
+    "wss_max_pa": 16.55976917,
+    "wss_min_pa": 0.003151787454,
+    "low_wss_frac_lt_0.5": 0.04069202159034915,
+    "low_wss_frac_lt_0.4": 0.02903406438533752,
+    "low_wss_frac_lt_1": 0.07922397316672912
+  },
+  "wss_strut_walls": {},
+  "vmax_mps": 0.5392305641566584,
+  "tawss": "NOT MEASURED (Phase 3)",
+  "osi": "NOT MEASURED (Phase 3)",
+  "mesh_from": "step",
+  "mesh_report": {
+    "cell_count": 195893,
+    "min_orthogonal_quality": 0.2086071411664973,
+    "max_orthogonal_quality": 1.0,
+    "avg_orthogonal_quality": 0.9758258324599893,
+    "stats_source": "mesher: get_cell_zones + get_cell_quality_limits (Orthogonal Quality)",
+    "mesh_path": "E:\\RMIT\\Capstone\\PyANSYS\\COLLAB---CAPSTONE\\share_team\\cfd_jignesh\\artery_runs_v3\\meshes\\L7_lumen_blocked_full360_v3.msh.h5",
+    "mesh_walltime_s": 146.2,
+    "sizes_mm": [
+      0.0421,
+      0.1854
+    ],
+    "geometry": {
+      "length_mm": 98.19999694824219,
+      "quarter": false,
+      "inlet_radius_mm": 1.2200000584282709,
+      "throat_radius_mm": 0.6339591679623778,
+      "throat_z_mm": 49.09674835205078,
+      "expected_mm2": {
+        "inlet": 4.67554380093346,
+        "outlet": 4.67554380093346,
+        "wall": 744.3742502860739
+      }
+    }
+  },
+  "status": "CONVERGED",
+  "wall_time_s": 74.7,
+  "exports": {
+    "wall": "E:\\RMIT\\Capstone\\PyANSYS\\COLLAB---CAPSTONE\\share_team\\cfd_jignesh\\artery_runs_v3\\L7_lumen_blocked_full360_v3_laminar_U0p10\\L7_lumen_blocked_full360_v3_laminar_U0p10_wall.csv"
+  }
+}

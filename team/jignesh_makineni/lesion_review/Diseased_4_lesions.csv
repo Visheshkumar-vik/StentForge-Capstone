@@ -1,0 +1,12 @@
+case,lesion,picked,path,throat_z_mm,start_z_mm,end_z_mm,length_mm,reference_r_mm,throat_r_smoothed_mm,min_r_raw_mm,narrowing,narrowing_raw,narrowing_mesh,calcium_mm3,wall_median_hu,near_ostium,near_tip,near_bifurcation,mesh_disagrees,runoff_mm,short_runoff,reported_severity,throat_x,throat_y,throat_z
+Diseased_4,L1,True,4,74.92,74.11,76.66,2.54,0.676,0.28,0.256,0.585,0.621,0.577,0.0,-10.0,False,False,False,False,10.0,False,0.3,270.94,253.53,-141.21
+Diseased_4,L2,False,2,92.19,90.32,97.24,6.92,0.507,0.257,0.253,0.493,0.501,0.493,0.0,-33.0,False,True,False,False,0.0,True,0.3,191.75,192.15,-160.93
+Diseased_4,L3,False,3,90.5,87.1,94.11,7.01,0.419,0.214,0.2,0.489,0.521,0.556,0.0,79.0,False,True,False,False,0.0,True,0.3,263.37,256.9,-156.44
+Diseased_4,L4,False,6,118.43,117.78,118.43,0.65,0.73,0.391,0.391,0.464,0.46,0.148,0.0,-48.0,False,True,False,True,0.0,True,0.3,279.49,203.94,-159.6
+Diseased_4,L5,False,0,138.63,137.54,139.62,2.08,0.685,0.41,0.403,0.401,0.435,0.459,0.0,-7.0,False,False,False,False,2.1,True,0.3,218.51,254.48,-167.84
+Diseased_4,L6,False,4,65.41,64.83,65.99,1.16,0.626,0.412,0.401,0.341,0.359,0.377,0.0,2.0,False,False,False,False,20.7,False,0.3,267.57,255.51,-133.18
+Diseased_4,L7,False,7,95.77,95.34,96.48,1.13,0.675,0.46,0.45,0.319,0.331,0.218,0.0,-29.0,False,False,False,False,16.7,False,0.3,254.34,187.5,-133.87
+Diseased_4,L8,False,1,168.82,168.66,169.28,0.61,0.508,0.357,0.344,0.297,0.315,0.356,0.0,-42.0,False,False,False,False,6.0,False,0.3,244.48,224.42,-185.64
+Diseased_4,L9,False,3,46.68,46.45,47.42,0.97,0.984,0.697,0.671,0.292,0.315,0.305,0.0,13.0,False,False,False,False,46.7,False,0.3,252.62,265.21,-120.88
+Diseased_4,L10,False,3,73.81,73.41,76.82,3.4,0.559,0.398,0.37,0.288,0.303,0.335,0.0,55.0,False,False,False,False,17.3,False,0.3,260.64,265.33,-145.66
+Diseased_4,L11,False,7,103.86,103.86,104.51,0.65,0.554,0.4,0.362,0.279,0.346,0.209,0.0,2.0,False,False,False,False,8.7,False,0.3,254.66,183.97,-140.96

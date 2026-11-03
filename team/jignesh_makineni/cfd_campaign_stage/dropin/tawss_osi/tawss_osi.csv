@@ -1,0 +1,2 @@
+key,value,units,note
+osi_threshold,0.1,-,area fraction with OSI above this (wss_report_v3; 19_CFD_SETTINGS)

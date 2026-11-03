@@ -1,0 +1,25 @@
+{
+  "cell_count": 195893,
+  "min_orthogonal_quality": 0.2086071411664973,
+  "max_orthogonal_quality": 1.0,
+  "avg_orthogonal_quality": 0.9758258324599893,
+  "stats_source": "mesher: get_cell_zones + get_cell_quality_limits (Orthogonal Quality)",
+  "mesh_path": "E:\\RMIT\\Capstone\\PyANSYS\\COLLAB---CAPSTONE\\share_team\\cfd_jignesh\\artery_runs_v3\\campaign_test\\L7\\blocked_struts-no\\meshes\\L7_lumen_blocked_full360_v3.msh.h5",
+  "mesh_walltime_s": 170.9,
+  "sizes_mm": [
+    0.0421,
+    0.1854
+  ],
+  "geometry": {
+    "length_mm": 98.19999694824219,
+    "quarter": false,
+    "inlet_radius_mm": 1.2200000584282709,
+    "throat_radius_mm": 0.6339591679623778,
+    "throat_z_mm": 49.09674835205078,
+    "expected_mm2": {
+      "inlet": 4.67554380093346,
+      "outlet": 4.67554380093346,
+      "wall": 744.3742502860739
+    }
+  }
+}
