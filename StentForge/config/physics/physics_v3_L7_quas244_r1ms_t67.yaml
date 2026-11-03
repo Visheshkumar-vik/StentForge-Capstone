@@ -1,0 +1,6 @@
+# artery.plaque_plastic_tangent_MPa 0.0067 (W-18). No other change.
+extends: physics_v3_L7_quas244_r1ms
+lineage: physics_v3_L7_quas244_r1ms_t67
+description: 'L7, 2.44 mm: 5A(f) 1 ms quasi-static release + plaque tangent fallback 0.0067 MPa.'
+artery:
+  plaque_plastic_tangent_MPa: 0.0067

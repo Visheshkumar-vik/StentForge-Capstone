@@ -1,0 +1,25 @@
+# physics_v3_L7_f244 (the 5A(b) candidate: nropt_unsym + ftoln_artery 0.2, restart every 20 substeps, 20 stored
+# expand sets, stall watchdog OFF) + ONE switch, v3.expander.artery_pair false: SPEC G4 pair (b) (expander vs the
+# lumen) is NOT built, so the rigid displacement-driven expander drives the STENT only and the tissue meets only the
+# struts.  Why: pair (b) presses lesion tissue directly through the stent cells in
+# the throat (active from TIME 3.656, worst-penetrating pair in 20 of the last 30 failed attempts; J outliers 702
+# of 844 in the throat) and that tissue inverts when the expander retracts (P1/P2: 67/30 inverted plaque elements,
+# ~16x over-represented among elements that touched the expander).  Published in-vessel model with no expander
+# body touching the tissue: Zahedmanesh, Kelly & Lally 2010 doi:10.1016/j.jbiomech.2010.03.050 case (ii).
+# Expander 2.44 mm (FALLBACK).
+extends: physics_v3_L7
+lineage: physics_v3_L7_e244
+description: 'L7 lesion: physics_v3_L7_f244 + v3.expander.artery_pair false (expander drives the stent only), expander 2.44 mm (FALLBACK).'
+v3:
+  expander:
+    od_mm: 2.44
+    artery_pair: false
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20
+  speed:
+    nropt_unsym: true
+    ftoln_artery: 0.2

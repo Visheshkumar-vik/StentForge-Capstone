@@ -1,0 +1,9 @@
+# physics_v3_L7_quas244_r1ms_t67 (2.44 mm expander, 5A(f) quasi-static transient with a 1 ms release, nropt_unsym,
+# stall watchdog (A11) ON with a per-design budget of 2 x the proof design's wall time (14 341 s -> 7.97 h).
+extends: physics_v3_L7_quas244_r1ms_t67
+lineage: physics_v3_L7_camp244
+description: 'Coupled campaign (frozen): proof config q244r1t67 + stall watchdog ON (budget 7.97 h).'
+v3:
+  stall:
+    enabled: true
+    budget_hours: 7.97

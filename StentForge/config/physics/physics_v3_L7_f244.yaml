@@ -1,0 +1,17 @@
+# 2.44 mm (FALLBACK). physics_v3_L7 + the race's two winners together (nropt_unsym + ftoln_artery 0.2) + the 5A run
+# settings (restart every 20 substeps, 20 stored expand sets, stall watchdog OFF: measurements).
+extends: physics_v3_L7
+lineage: physics_v3_L7_f244
+description: 'L7 lesion: expander 2.44 mm (FALLBACK), nropt_unsym + ftoln_artery 0.2.'
+v3:
+  expander:
+    od_mm: 2.44
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20
+  speed:
+    nropt_unsym: true
+    ftoln_artery: 0.2

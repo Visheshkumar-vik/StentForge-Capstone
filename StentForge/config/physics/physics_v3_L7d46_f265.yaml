@@ -1,0 +1,16 @@
+# Fallback-lesion (46 % DS) twin of physics_v3_L7_f265; unused unless it fires.
+extends: physics_v3_L7d46
+lineage: physics_v3_L7d46_f265
+description: 'L7 lesion at 46 % DS: expander 2.65 mm, nropt_unsym true, ftoln_artery 0.2.'
+v3:
+  expander:
+    od_mm: 2.65
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20
+  speed:
+    nropt_unsym: true
+    ftoln_artery: 0.2

@@ -1,0 +1,38 @@
+# RELEASE SIDE ARM B1b, the ONE pre-declared variant of B1 (used only if B1 fails on the proof bed; v14 5B verbatim:
+# Child of the frozen C1 physics_v3_L7_relA2; ONLY
+# the release changes, and it becomes two steps:
+#   LS5 release_retract  the expander retraction (to r_e0, as relA2's LS5), static (TIMINT,OFF),
+#                        STABILIZE,CONSTANT,DAMPING,1e-2,ANYTIME, NSUBST,20,2000,5, relA2's contact damping
+#                        (CNKMOD,8,15,2 / 9,15,2 / 4,15,2 at its start); TIME 4 -> 5.
+#   LS6 release          zero-motion SETTLE: the expander re-held at the same r_e0 (no load change), static,
+#                        STABILIZE,REDUCE,DAMPING,1e-2,ANYTIME (lead decision SA-2, reversible: the help text says
+#                        ANYTIME is for a step after one stabilised with Key = CONSTANT, which is this step; ANYTIME is
+#                        v14's own confirmed first-substep option), NSUBST,20,2000,5 (the same as LS5: the minimum
+#                        choice, no new number), TIME 5 -> 6; the CNKMOD lines are re-issued at its start (same
+#                        values; only matters if a run restarts there). The released state is the END of this step
+#                        (the step named "release": classify_v3 / qoi_v3).
+#   crimp / crimp_release / expand keep relA2's TIMINT,ON + TINTP,QUAS + STABILIZE,OFF exactly (quasi_static_steps
+#   lists every loaded step of relA2 except the release steps); qs_step_duration_s: null as in physics_v3_L7_sa_B1
+#   (1 s per static release step, LS1-LS4 end TIMEs unchanged).
+# NOT included (one change per arm): the CNOF/FKOP real-constant position.
+extends: physics_v3_L7_relA2
+lineage: physics_v3_L7_sa_B1b
+description: 'Release side arm B1b: relA2 with a static CONSTANT-damped retraction (1e-2, ANYTIME) then a zero-motion REDUCE settle step; NSUBST 20,2000,5; relA2 contact damping kept.'
+v3:
+  plan: [crimp, crimp_release, birth, expand, release_retract, release]
+  release_route:
+    name: sa_B1b
+    steps: [release_retract, release]
+  solver:
+    quasi_static_steps: [crimp, crimp_release, expand]
+    qs_step_duration_s: null
+  stabilize:
+    release: [damping, 1.0e-2]          # table key 'release' = release_retract AND release (coupled_v3_apdl._step_key)
+  stabilize_key:
+    release_retract: CONSTANT
+    release: REDUCE
+  stabilize_substpopt:
+    release_retract: ANYTIME
+    release: ANYTIME                    # SA-2 decision: the settle follows a CONSTANT step (help: use ANYTIME)
+  nsubst:
+    release: [20, 2000, 5]              # both release steps (same table key)

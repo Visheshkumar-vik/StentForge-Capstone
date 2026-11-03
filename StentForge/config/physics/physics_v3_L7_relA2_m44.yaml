@@ -1,0 +1,7 @@
+# with the stent at mesh level base (4x4 across width x thickness, the registered S7 table) instead of screening.
+# Nothing else differs. Mesh-refinement path test on the proof design only; never pooled with screening rows.
+extends: physics_v3_L7_relA2
+lineage: physics_v3_L7_relA2_m44
+description: 'C1 (relA2) with the stent at mesh level base (4x4); finalist-refinement path.'
+stent:
+  mesh_level: base

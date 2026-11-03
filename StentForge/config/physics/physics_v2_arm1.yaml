@@ -1,0 +1,33 @@
+# physics_v2_arm1 -- 5A ARM 1: contact birth after predilatation (the LEAP recipe),
+# EVERYTHING ELSE at the 23 Sep settings.  Isolates the ordering fix.
+#
+# Two things differ from physics_v1 that are not the ordering fix, both
+# numerics/output only and both recorded here rather than hidden:
+#   * PINB is absolute (negative), sized at 1.5 x the largest initial gap.  With
+#     contact born into clearance there is no initial penetration to capture, so
+#     Arm 1 explicitly.
+#   * OUTRES stores the last substep of every load step plus every substep of the
+#     expand step.  Twelve designs at OUTRES,ALL,ALL (5-11 GiB each) do not fit
+#     beside the 20 GiB floor on this box (94 GiB free at start).  This changes
+#     what is WRITTEN, not what is solved; the gates read the same last sets.
+extends: physics_v1
+lineage: physics_v2_arm1
+prereg: P-017-PENDING
+description: >
+  physics_v1 with the contact pairs EKILLed through predilatation and EALIVEd,
+  KEYOPT(9)=0, once the printed clearance is positive; no external load in the
+  birth step; PINB absolute.  Material, crimp, stabilisation, CNVTOL, artery and
+  friction exactly as 23 Sep.
+
+coupled:
+  contact:
+    pinb_mode: absolute
+    pinb_gap_factor: 1.5
+    pinb_min_mm: 0.10
+    keyopt9: 0
+    birth_after_predilatation: true
+    cncheck_detail: true
+  outres:
+    default: LAST
+    per_step:
+      expand: ALL

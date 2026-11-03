@@ -1,0 +1,12 @@
+# speed options are config switches, defaults = the physics_v2 values, and the campaign workstation speed race
+# on the expand picks the winners).  Identical to physics_v3 except ONE switch under
+# v3.speed (stab_damping_expand: 1.0e-3).  Its results carry this lineage name and are never pooled with
+# physics_v3 or another speed child; it inherits result_status PENDING_DECISION.
+extends: physics_v3
+lineage: physics_v3_speed_damping
+description: >
+  physics_v3 with ONE speed switch: the expand's STABILIZE damping factor 1e-3 instead of 1e-2; less
+  artificial damping, more Newton work. Everything else exactly as physics_v3.
+v3:
+  speed:
+    stab_damping_expand: 1.0e-3            # S4 switch under test (physics_v3: 1.0e-2); SAG 8.11.1 (the printed factor is a reference value)

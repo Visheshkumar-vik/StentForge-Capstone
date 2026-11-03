@@ -1,0 +1,29 @@
+# Child of the frozen C1 physics_v3_L7_relA2; ONLY the LS5 release changes:
+#   - LS5 static (TIMINT,OFF) inside relA2's ANTYPE,TRANS: quasi_static_steps lists every loaded step of relA2 except
+#     the release, so crimp / crimp_release / expand keep relA2's TIMINT,ON + TINTP,QUAS + STABILIZE,OFF exactly
+#     (relA2's own quasi_static_steps is null = every loaded step; the birth is static either way);
+#   - STABILIZE,REDUCE,DAMPING,1e-2,ANYTIME (SubStpOpt ANYTIME: MAPDL 2026 R1 echo MEASURED 3 Oct,
+#     docs/physics_v3/release_sidearm/stab.out: KEY=REDU METHOD=DAMP VALUE= 0.10000E-01 SUBSTPOPT=ANYT);
+#   - NSUBST,20,2000,5;
+#   - relA2's contact damping kept (release_route inherited: CNKMOD,8,15,2 / 9,15,2 / 4,15,2 at the start of LS5).
+#   - qs_step_duration_s: null. relA2's 1e-3 s release is a quasi-static-transient key, refused on a static step
+#     (coupled_v3_apdl.qs_step_durations); the release takes the static plan's 1 s (TIME 4 -> 5), the step length
+#     over which the 1e-2 damping factor is used in the static expand (S1/S4). LS1-LS4 end TIMEs are unchanged.
+# NOT included (one change per arm): the CNOF/FKOP real-constant position.
+extends: physics_v3_L7_relA2
+lineage: physics_v3_L7_sa_B1
+description: 'Release side arm B1: relA2 with a damped STATIC release (TIMINT,OFF; STABILIZE,REDUCE,DAMPING,1e-2,ANYTIME; NSUBST 20,2000,5; relA2 contact damping kept).'
+v3:
+  release_route:
+    name: sa_B1
+  solver:
+    quasi_static_steps: [crimp, crimp_release, expand]
+    qs_step_duration_s: null
+  stabilize:
+    release: [damping, 1.0e-2]
+  stabilize_key:
+    release: REDUCE
+  stabilize_substpopt:
+    release: ANYTIME
+  nsubst:
+    release: [20, 2000, 5]

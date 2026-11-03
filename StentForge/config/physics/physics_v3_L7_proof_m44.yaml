@@ -1,0 +1,7 @@
+# design so far (the proof design sine_fea_035, config physics_v3_L7_quas244_r1ms_t67): stent mesh level base (4x4,
+# S7 table) instead of screening. Mesh sensitivity only -- never the campaign config; never pooled.
+extends: physics_v3_L7_quas244_r1ms_t67
+lineage: physics_v3_L7_proof_m44
+description: 'Proof config with the stent at mesh level base (4x4).'
+stent:
+  mesh_level: base

@@ -1,0 +1,10 @@
+# = physics_v3_wk_quasair (physics_v3 + quasi-static transient loaded steps, stall watchdog off) + the RELEASE
+# solved over 1e-3 s (the in-air release is LS4: it ends at TIME 3.001).  Checks that MAPDL accepts the release
+# TIME / NSUBST and that the gates and the extraction read the new end TIME.
+extends: physics_v3_wk_quasair
+lineage: physics_v3_wk_quasair_r1ms
+description: 'W-12 in-air smoke: physics_v3_wk_quasair + release physical duration 1e-3 s.'
+v3:
+  solver:
+    qs_step_duration_s:
+      release: 1.0e-3

@@ -1,0 +1,28 @@
+# THE FINAL-CAMPAIGN LESION. Replaces the pooled-trial
+# An idealised lesion fitted to ASOCA Diseased_20, lesion L7 (Jignesh Makineni's centreline radius-profile
+# analysis: path 3, 59.0 mm from the ostium, ~7 mm downstream of a bifurcation, calcium 0.0 mm3, no flags;
+# healthy reference radius ~1.22 mm; diameter narrowing 48 % (46 % from the surface mesh); length above 25 %
+# narrowing 2.3 mm). Same straight tube, concentric raised-cosine narrowing, same materials.
+#   R0 1.22 mm (RVD 2.44 mm); stenosis 0.73 area (48 % DS; throat r = 1.22 sqrt(0.27) = 0.634 mm);
+#   lesion length 5.0 mm (a raised cosine with 48 % peak narrowing has 0.487 L above 25 %: 2.3 mm -> 4.7 mm,
+#   rounded to 5.0); wall 0.575 mm (the 0.65 mm Holzapfel-ratio wall x 1.22/1.38; inside R2's 0.50-0.84).
+# Stent unchanged (as-cut 1.90, crimp 1.10: crimped outer r 0.55 < throat 0.634, clearance ~0.08 mm).
+# Expander: PRIMARY 2.65 mm (3.00/2.76 x 2.44), FALLBACK 2.44 mm (1:1). NEVER "patient-specific".
+# Old-lesion results are never pooled with new-lesion results.
+extends: physics_v3
+lineage: physics_v3_L7
+description: 'physics_v3 on the idealised lesion fitted to ASOCA Diseased_20 L7 (48 % DS / 73 % area, RVD 2.44 mm).'
+artery:
+  R0_mm: 1.22
+  wall_thickness_mm: 0.575
+  lesion_length_mm: 5.0
+  stenosis_area: 0.73
+  stenosis_label: "48 % DS / 73 % area"
+  lesion_tag: asoca_d20_L7_idealised_v1
+  lesion_label: "idealised lesion fitted to ASOCA Diseased_20 L7 (48 % DS / 73 % area, RVD 2.44 mm)"
+  lesion_source: "J. Makineni centreline radius-profile analysis of ASOCA Diseased_20 L7"
+v3:
+  expander:
+    od_mm: 2.65                           # 15: PRIMARY = 3.00/2.76 x 2.44 (FALLBACK 2.44)
+  qoi:
+    rvd_mm: 2.44                          # 2 R0

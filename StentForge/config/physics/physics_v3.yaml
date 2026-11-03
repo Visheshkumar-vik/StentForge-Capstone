@@ -1,0 +1,261 @@
+# A NEW lineage, selected by name only (--physics physics_v3 or $STENTFORGE_PHYSICS_LINEAGE);
+# never mixed with physics_v1 / physics_v2 results.  It extends physics_v2 for the lesion,
+# the PEEQ screen and the stent-artery contact law, and replaces the load path (G3-G6),
+# the material cards (M1-M9), stabilisation (S1), output (S5), restart (S6) and the QoIs (Q2).
+# The v3 driver (FullTwin/full_twin/coupled_v3.py) reads the `v3:` block; physics_v1 and
+# physics_v2 never read it.
+extends: physics_v2
+lineage: physics_v3
+prereg: "PLACEHOLDER - DECISION REQUIRED (physics_v3 pre-registration id)"
+description: >
+  Contact-cylinder expander (Gervaso 2008 doi:10.1016/j.jbiomech.2008.01.027; Wiesent 2019
+  doi:10.1371/journal.pone.0224026), as-cut OD 1.90 mm crimped in the model to 1.10 mm, a 5-step
+  plan (crimp, crimp_release, birth, expand, release), STABILIZE per step (energy only in the crimp,
+  pinned damping in the expand, OFF elsewhere), 316L_Wiesent_ext stent card, Liu 2022 6-term Yeoh
+  vessel, Cunnane 2015 hypocellular plaque, RESCONTROL restart, one definition per QoI name.
+
+stent:
+  material_card: 316L_Wiesent_ext         # M2: Wiesent 2019 doi:10.1371/journal.pone.0224026 Table 2, Swift-extended
+  material_card_corpus: 316L_Wiesent_ext
+  hardening: multilinear_isotropic
+  keyopt2_coupled: 2                      # as physics_v2 (enhanced strain on the stent)
+  as_cut_od_mm: 1.90                      # G1: Geith 2019 doi:10.1002/cnm.3249 (1.94); Wiesent 2019 (1.97)
+  as_cut_od_range_mm: [1.8, 2.0]          # G1 design parameter range
+  mesh_level: screening                   # S7: screening (v2 corpus mesh) | coarse 2x2 | base 4x4 | fine 8x8
+  mesh_levels:                            # S7: across the strut width x through the wall; r = 2
+    coarse: [2, 2]                        # Celik 2008 doi:10.1115/1.2960953 (GCI procedure)
+    base: [4, 4]                          # Bernini 2023: 4x4 within ~2 % of 8x8
+    fine: [8, 8]
+
+fracture_screen:
+  peeq_screen: 0.3364722366212129         # M6: ln(1.40), unchanged from physics_v2; ONE constant, ">="
+  operator: ">="
+  is_fracture_prediction: false
+  wording: "uniaxial ductility screen, not a fracture prediction"
+
+crimp:
+  mode: solved_continuous                 # G3: crimp stays in the coupled model
+  route: in_model                         # G3: in_model | mapped (UPGEOM+INISTATE; needs a map-check first)
+  target_od_mm: 1.10                      # G2: Schmidt 2018 doi:10.1186/s40001-017-0300-y; Samant 2021 doi:10.1038/s41598-021-87908-2
+  feasibility:
+    max_metal_fraction: "PLACEHOLDER - DECISION REQUIRED"   # G1: circumferential metal fraction at the crimped OD
+  sheath:
+    conta: 174
+    fkn: 0.1
+    mu: 0.0                               # S3: sheath frictionless
+    gap_mm: 0.02
+    keyopt5: 0
+    keyopt9: 0
+    stabilize_energy: 1.0e-4              # S1: crimp ENERGY 1e-4 (SAG 8.11.1)
+    stabilize_off_release: true           # S1: crimp release OFF
+    nsubst: [200, 500000, 50]
+    nsubst_release: [50, 500000, 20]
+
+coupled:
+  load_path: v3_expander                  # THE discriminator: only physics_v3 carries it (physics.is_v3)
+  stabilize_energy: 1.0e-4
+  stabilize_off_release: true
+  stabilize_in_zero_motion_steps: false
+  contact:                                # S3: stent-artery, as physics_v2 (augmented Lagrange)
+    fkn: 1.0
+    ftoln: 0.1
+    keyopt10: 2
+    pinb_mode: absolute
+    pinb_gap_factor: 1.5
+    pinb_min_mm: 0.10
+    keyopt9: 0
+    birth_after_predilatation: true       # v3: birth after the crimp release (LS3), no predilatation
+    mu: 0.2                               # S3: Zhao 2021; Samant 2021 doi:10.1038/s41598-021-87908-2 (0.2)
+    mu_ramp: true                         # S3: ramped over LS4 (the expand) by TB,FRIC + TBFIELD,TIME
+    cncheck_detail: true
+
+artery:
+  vessel_card: vessel_liu2022_yeoh6       # M7: Liu 2022 doi:10.1007/s10237-022-01605-1; Xu 2016 doi:10.1186/s12938-016-0135-8
+  plaque_card: plaque_cunnane_loree_plastic
+                                         #   Cunnane 2015 Yeoh (doi:10.1186/1475-925X-14-S1-S7 Tables 3-4) + J2 perfect plasticity (TB,PLASTIC BISO)
+                                         #   at the Loree hypocellular failure stress 0.67 MPa (Cunnane 2015 Table 4, stretch 1.23)
+  plaque_card_label: "Cunnane-Loree hypocellular + J2 plasticity (composition following Samant 2021 doi:10.1038/s41598-021-87908-2 / Gastaldi 2010 polynomial-plus-plasticity practice)"
+  plaque_card_brackets:
+    - plaque_cunnane_plastic_1p40        # same Yeoh + BISO yield 1.40 MPa (Samant 2021: 34 % strain onset)
+    - plaque_poletti_calcified           # MP,EX 44.0, MP,PRXY 0.3, BISO yield 0.48 MPa (Poletti 2022 via Sogbadji 2025 doi:10.1007/s10237-024-01923-6 Table 2)
+    - plaque_poletti_lipidic             # Yeoh C10 0.0133 (neo-Hookean) + BISO yield 0.070 MPa (same source)
+  plaque_card_legacy: [plaque_cunnane_hypo, plaque_leap_stiff, plaque_he2020_soft]
+  plaque_plastic_tangent_MPa: 0.0
+  plaque_plastic_tangent_fallback_MPa: 0.0067
+  plaque_model: card
+  plaque_elastoplastic:
+    E_MPa: "PLACEHOLDER - SOURCE PENDING"
+    nu: "PLACEHOLDER - SOURCE PENDING"
+    miso: "PLACEHOLDER - SOURCE PENDING"     # list of [eps_pl, sigma_MPa] when sourced
+    source: "PLACEHOLDER - SOURCE PENDING"
+    doi: "PLACEHOLDER - SOURCE PENDING"
+  compressibility_rule: "K = 1000 x mu0"
+  k_over_mu0: 1000.0                      # A6 design parameter: 1000 = every tissue card exactly as registered; any other value -> D1 = 2/(k mu0) on every hyperelastic card (sensitivity lineages physics_v3_L7_k500_265 / _k2000_265)
+  keyopt2: 0                              # M9: mixed u-P tissue (SOLID185 KEYOPT(2)=0, KEYOPT(6)=1)
+  keyopt6: 1
+  R0_mm: 1.38                             # M10: Konigstein 2022 pooled RVD 2.76 mm
+  wall_thickness_mm: 0.65
+  lesion_length_mm: 10.0
+  stenosis_area: 0.70                     # M10: 70 % area = 45.2 % DS; label printed on every output
+  stenosis_label: "45.2 % DS / 70 % area"
+  sensitivity:                            # M10: design parameters exist, defaults OFF
+    stenosis_area_alt: 0.75
+    axial_prestretch: null                # 1.044 when ON (Holzapfel 2005)
+    end_springs_kN_per_m: null            # 1.0 per end when ON (COMBIN14; Schiavone & Zhao 2015 doi:10.1186/s40759-014-0002-x)
+
+v3:
+  expander:                               # G4 / G5
+    od_mm: 3.00
+    od_status: "PLACEHOLDER - DECISION REQUIRED"
+    overhang_mm: 0.5                      # G4: stent length + 0.5 mm each end (Wiesent 2019)
+    stop_clearance_mm: 0.02               # G4
+    park_radius_mm: 0.15
+    pairs_born_at: birth
+    targe_keyopt2: 1                      # G4: TARGE170 KEYOPT(2)=1 (boundary conditions on the target nodes)
+    cylinder_smoothing: true              # G4: SECTYPE,,CONTACT,CYLINDER where supported
+    fkn: 1.0                              # G4 pairs (a) and (b): frictionless, augmented Lagrange
+    ftoln: 0.1
+    keyopt5: 0
+    keyopt9: 0
+    artery_pair: true
+    np_MPa: 0.709                         # G5: nominal pressure (SSED P190020), for the p_eq report only
+    rbp_MPa: 1.621
+  plan: [crimp, crimp_release, birth, expand, release]    # G6: LS1..LS5 (+ optional lumen-pressure steps)
+  technique: "DIRECT STENTING (no predilatation)"
+  predilatation: none
+  sheath_kill_after: crimp_release
+  birth_clearance:                       # 35 AEST: at LS3 the stent is the RELEASED crimp (end of LS2); coupled chain only
+    enabled: true                        # after the LS2 SOLVE: max outer stent radius vs the lumen (analytic, meshed nodes, facet chords) over the lesion span
+    margin_mm: 0.0                       # "any overlap": min clearance < margin -> GEOMETRY_INFEASIBLE_AT_BIRTH, stop before LS3, exit 4
+  contact:
+    pinb_cap_strut_factor: 3.0           # PINB = -min(max(0.10, 1.5 x birth gap), 3 x strut thickness)
+  nldiag_contact: true
+  main_rank_output_on_disk: true
+  crimp_release_stabilize: energy
+  stab_reduce_end_expand: true
+  friction_ramp_step: birth
+  restraint:
+    mode: determinate                    # UZ on the mid-length stent nodes on the symmetry plane + the tangential DOF of one node
+    report_reaction_every_step: true     # reaction printed to the log and result.json every step (expected ~0)
+  release_steps: 1                        # G6: 1 | 2 (half then full retraction) fallback
+  lumen_pressure_steps: false             # G6: optional LS6+ (OFF tonight)
+  lumen_pressure_mmHg: [100, 80, 120, 80, 120, 80, 120]   # G6 / R1 M9
+  stabilize:                              # S1: SAG 8.11.1 -- ENERGY only where it converges (the crimp)
+    crimp: [energy, 1.0e-4]
+    crimp_release: [energy, 1.0e-4]
+    birth: ["off", 0.0]
+    expand: [damping, 1.0e-2]
+    release: ["off", 0.0]
+    lumen_pressure: ["off", 0.0]
+  nsubst:                                 # [initial, max, min]
+    crimp: [200, 500000, 50]
+    crimp_release: [50, 500000, 20]
+    birth: [1, 20, 1]
+    expand: [50, 100000, 20]              # S4 default: dt_min 1e-5 of the step
+    release: [20, 200, 5]                 # G6
+    lumen_pressure: [10, 100, 2]
+  outres:                                 # S5
+    default: LAST
+    expand_erase: true                    # OUTRES,ERASE then OUTRES,ALL,-20 in the expand
+    expand_sets: -20
+  restart:                                # S6: BAG 5.8; RESCONTROL command reference
+    enabled: true
+    define_all: LAST                      # RESCONTROL,DEFINE,ALL,LAST
+    expand_frequency: 200                 # RESCONTROL,DEFINE,<LS4>,200,2
+    expand_maxfiles: 2
+    single_line_fallback: false           # true -> RESCONTROL,DEFINE,ALL,200,2 only
+  speed:                                  # S4: defaults = the physics_v2 values; the campaign workstation speed race picks winners
+    contact_asym_auto: false              # true -> KEYOPT(8)=2 on the stent-artery CONTA (CTG 3.5.1)
+    contact_detect_projection: false      # true -> KEYOPT(4)=3 (CTG 3.9.6.3)
+    nropt_unsym: false                    # true -> NROPT,UNSYM in the expand
+    stab_damping_expand: 1.0e-2           # S1 / S4
+    ftoln_artery: 0.1                     # S4
+    nsubst_expand: [50, 100000, 20]       # S4
+  solver:
+    quasi_static_transient: false         # true -> ANTYPE,TRANS + TRNOPT,FULL (declared once); every LOADED step (all
+                                          #   but the zero-motion birth) TIMINT,ON + TINTP,QUAS + STABILIZE,OFF; the
+                                          #   birth TIMINT,OFF (static); MP,DENS below; KE/SENE gate (v3.gates.ke_sene_max)
+    density_t_per_mm3:                    # read ONLY with quasi_static_transient; units mm-t-s-MPa (N, mJ)
+      stent: 7.9e-9                       # 316L, 7900 kg/m^3
+      tissue: 1.0e-9                      # vessel + plaque, 1000 kg/m^3
+    qs_step_duration_s: null
+                                          #   with quasi_static_transient (else it raises); null = 1 s per step (TIME 1..N,
+                                          #   byte-identical stream).  e.g. {release: 1.0e-3}: the release ends at TIME
+                                          #   4.001; NSUBST keeps its substep COUNTS over the shorter step; KE/SENE gated
+  stall:                                  # S4 as amended: failure class `stalled`, never "converged"
+    enabled: true
+    rule: projected_budget
+    check_every_min: 30.0                #   current step at the recent TIME rate exceeds the remaining per-design budget
+    budget_hours: 2.5                    # per-design wall budget (workstation shakedown window 06:15-08:45); override per run
+    window_min: 30.0                     # the recent-rate window
+    min_time_advance: 0.01               # SUPERSEDED rule (S4 original), kept for the record only
+  gates:
+    stab_ratio_mode: whole_model          # whole_model | per_group (both computed; per-group never gated)
+    stab_ratio_max: 0.01
+    stab_ratio_status: "PLACEHOLDER - DECISION REQUIRED"
+    j_min: 0.95                           # M9
+    j_max: 1.05                           # M9
+    j_mode: report_only
+    stab_force_ratio_max: 0.005
+    stab_force_ratio_status: "PLACEHOLDER - DECISION REQUIRED"
+    stent_follows_band_frac: 0.20
+    stent_follows_wall_frac: 0.5
+    stab_ratio_flag_max: 0.05
+    ke_sene_max: 0.01                     # 5A(f): whole-model KENE/SENE per stored set of every quasi-static step (read only with v3.solver.quasi_static_transient)
+    ke_sene_status: "energy band: <= 1 % pass"
+  qoi:                                    # Q2: one definition per name
+    rvd_mm: 2.76                          # 2 R0 (Konigstein 2022)
+    f2079_band_frac: 0.2                  # acute recoil: mid-length 0.2 L band (in-air chain)
+    malapposition_mm: 0.200               # Prati 2015
+    malapposition_bands_mm: [0.100, 0.300]
+    plaque_overstress_MPa: [0.67, 0.255]  # Cunnane 2015 Table 4 (doi:10.1186/1475-925X-14-S1-S7)
+    plaque_overstretch: 1.23              # Holzapfel 2004
+    tissue_overstress_kPa: 50.0           # Zahedmanesh 2010 (alternative)
+    plaque_overstress_kPa_alt: 500.0      # Zahedmanesh 2010 (alternative)
+    radial_force: full_ring               # half-model values x 2, factor recorded
+    mld_definition: flow_lumen
+    mld_angle_bins: 36
+    exceeds_rbp_flag: true
+    descriptors_not_constraints: [peak_peeq, FoS_eps, FoS_sigma, in_vessel_lumen_loss_pct]
+  lane_policy:
+    objective_lanes: [coupled]            # Q1: lane C only
+    excluded_lanes: [prescribed]          # Q1: lane P (0.88 cap) never enters objectives or training
+
+cfd:                                      # F1 / F3 (the CFD lane reads these through StenosisCFD/cfd_config.py)
+  inflows_mps: [0.10, 0.26]               # Kaufmann 2005 (37 mL/min rest) / hyperaemic
+  inlet_profile: parabolic
+  laminar: true                           # lumen Re <= 218 post-stent
+  waveform: diastole_dominant             # diastolic/systolic ratio ~1.85, period 0.8 s, mean 0.10 m/s
+  waveform_period_s: 0.8
+  waveform_diastolic_systolic_ratio: 1.85
+  rheology: "Carreau (Cho & Kensey 1991)"
+  thresholds:
+    low_wss_pa: 0.5
+    low_wss_pa_sensitivity: [0.4, 1.0]
+    osi_area_threshold: 0.1
+    rrt_threshold: null
+
+ranking:
+  method: "constrained Pareto front, no weights (Q3)"
+  weights: {}
+  combiner: "PLACEHOLDER - DECISION REQUIRED"
+  objectives: [residual_DS_pct, plaque_overstress_vf_067, malapposition_frac_200um, wall_thickness_mm]
+  campaign_ranges:
+    wall_thickness_mm_max: 0.20          # wall thickness above 0.20 mm (e.g. sine_0049's 0.249) is OUTSIDE the campaign range
+  constraints:
+    exceeds_RBP: false
+    fatigue_fsf_min: "PLACEHOLDER - DECISION REQUIRED"
+    collapse_pressure_kPa_min: "PLACEHOLDER - DECISION REQUIRED"
+
+result_status: PENDING_DECISION
+ack_required:
+  - "stabilisation per step (S1 + A2 + A5): ENERGY only in crimp/crimp_release, DAMPING (REDUCE) in the expand, OFF elsewhere"
+  - "friction timing (A7): MU 0 -> 0.2 over LS3 birth, not v2's ramp to the end of deflate"
+  - "card extension (M2): 316L_Wiesent_ext continues the Swift law past 0.3641 (v2 cut it, perfectly plastic beyond)"
+  - "Pareto vector (Q3 + A8 + A9 + D3): residual_DS_pct, plaque_overstress_vf_067, malapposition_frac_200um, wall_thickness_mm"
+  - "predilatation removal (G6)"
+  - "as-cut OD 1.90 mm (G1) instead of the corpus 3.0 mm"
+  - "tissue cards (M7, M8, A6): Liu 2022 Yeoh-6 vessel, Cunnane 2015 plaque, K = 1000 mu0 for every card"
+  - "plaque default: Cunnane-Loree hypocellular Yeoh + J2 perfect plasticity at 0.67 MPa (TB,HYPER + TB,PLASTIC BISO)"
+  - "OUTRES stride (S5): expand OUTRES,ALL,-20 instead of v2's ALL every substep"
+  - "P-017 scope: the 1 % stabilisation-energy gate applied whole-model (S2), per-group reported only"

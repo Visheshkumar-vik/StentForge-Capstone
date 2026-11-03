@@ -1,0 +1,8 @@
+# if Newton stalls, recorded".  The fallback is an operator re-run under this lineage NAME (never an
+# in-run switch), so every result says by name which tangent it ran with.
+# the physics_v3 plaque default.
+extends: physics_v3
+lineage: physics_v3_plaque_tangent
+description: physics_v3 with the plaque BISO tangent modulus 0.0067 MPa (Newton-stall fallback).
+artery:
+  plaque_plastic_tangent_MPa: 0.0067

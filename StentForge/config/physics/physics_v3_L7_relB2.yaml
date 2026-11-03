@@ -1,0 +1,10 @@
+# time (1.6e-3 s instead of 8e-4 s; the release ends at TIME 4.0018).
+extends: physics_v3_L7_relB
+lineage: physics_v3_L7_relB2
+description: 'RelB with the reaction ramped to zero over twice the time.'
+v3:
+  release_route:
+    name: relB2
+  solver:
+    qs_step_duration_s:
+      release: 1.6e-3

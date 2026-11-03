@@ -1,0 +1,15 @@
+# speed options are config switches, defaults = the physics_v2 values, and the campaign workstation speed race
+# on the expand picks the winners).  Identical to physics_v3 except ONE switch under
+# v3.speed (nsubst_expand: [20, 20000, 10]).  Its results carry this lineage name and are never pooled with
+# physics_v3 or another speed child; it inherits result_status PENDING_DECISION.
+extends: physics_v3
+lineage: physics_v3_speed_nsubst
+description: >
+  physics_v3 with ONE speed switch: NSUBST,20,20000,10 in the expand instead of 50,100000,20: a larger first
+  increment (1/20 of the stroke) and a coarser floor (dt_min 5e-5 of the step), so a
+  design that cannot converge fails in minutes instead of crawling (v2: TIME 7.0 -> 7.7 in
+  4.6 h at dt ~1e-4).
+  Everything else exactly as physics_v3.
+v3:
+  speed:
+    nsubst_expand: [20, 20000, 10]         # S4 switch under test (physics_v3: [50, 100000, 20]); assembler choice.md

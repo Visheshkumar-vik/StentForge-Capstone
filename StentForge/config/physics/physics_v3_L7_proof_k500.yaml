@@ -1,0 +1,8 @@
+# (physics_v3_L7_quas244_r1ms_t67) with K = 500 mu0 (artery.k_over_mu0; default 1000). Sensitivity only -- never the
+# campaign config; never pooled.
+extends: physics_v3_L7_quas244_r1ms_t67
+lineage: physics_v3_L7_proof_k500
+description: 'S7.7: proof config with tissue K = 500 mu0.'
+artery:
+  k_over_mu0: 500.0
+  compressibility_rule: "K = 500 x mu0 (s7.7 sensitivity)"

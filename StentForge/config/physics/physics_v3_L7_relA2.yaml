@@ -1,0 +1,8 @@
+# stent-artery pairs (CONTA174 ET 4, real sets 1 and 2).
+extends: physics_v3_L7_relA
+lineage: physics_v3_L7_relA2
+description: 'RelA + contact stabilisation damping also on the stent-artery pairs in LS5.'
+v3:
+  release_route:
+    name: relA2
+    pairs: [expander, stent_artery]

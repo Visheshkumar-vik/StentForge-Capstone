@@ -1,0 +1,6 @@
+# sine_fea_035 at mesh level 'base'. physics_v3 defaults otherwise (expander 3.00 mm, in-air G7).
+extends: physics_v3
+lineage: physics_v3_wk_gci_base
+description: 'S7.1 GCI study: in-air chain, stent mesh level base.'
+stent:
+  mesh_level: base

@@ -1,0 +1,111 @@
+! Author: Vishesh Kumar
+! view_design.mac
+! Steps through one stent design's deployment in Mechanical APDL.
+!
+! How to use: File > Change Directory to the design's folder, then type
+!     /INPUT,view_design,mac
+! Needs in the same folder: file.rst (results) and model.db (model).
+! Click OK on each prompt to move to the next plot.
+!
+! Load steps: 1 crimp, 2 crimp release, 3 artery contact switched on,
+!             4 full expansion inside the artery, last set = release.
+! Units: mm, MPa.
+
+FINISH
+RESUME,model,db
+/POST1
+FILE,file,rst
+SET,LIST
+/GRAPHICS,FULL
+/VIEW,1,1,1,1
+/ANG,1
+/DSCALE,1,1.0
+/PLOPTS,INFO,3
+/CONTOUR,1,9
+
+! =====================================================================
+! 1. Crimped stent (end of step 1)
+! =====================================================================
+SET,,,,,1.0
+ESEL,S,ENAME,,185
+/TITLE,Step 1 crimp - total displacement (mm)
+PLNSOL,U,SUM
+ALLSEL,ALL
+*ASK,_go,Step 1 crimp shown. OK for step 4 (full expansion),1
+
+! =====================================================================
+! 2. Full expansion inside the artery (end of step 4)
+! =====================================================================
+SET,,,,,4.0
+ESEL,S,ENAME,,185
+/TITLE,Step 4 full expansion - total displacement (mm)
+PLNSOL,U,SUM
+ALLSEL,ALL
+*ASK,_go,Displacement shown. OK for stent stress,1
+
+! stent only
+*GET,_ctyp,COMP,STENT_ALL,TYPE
+*IF,_ctyp,EQ,2,THEN
+  CMSEL,S,STENT_ALL
+*ELSEIF,_ctyp,EQ,1,THEN
+  CMSEL,S,STENT_ALL
+  ESLN,S,1
+  ESEL,R,ENAME,,185
+*ELSE
+  ESEL,S,ENAME,,185
+*ENDIF
+/TITLE,Step 4 full expansion - stent von Mises, smoothed at nodes (MPa)
+PLNSOL,S,EQV
+*ASK,_go,Smoothed stress shown. OK for raw element stress,1
+/TITLE,Step 4 full expansion - stent von Mises, raw element values (MPa)
+PLESOL,S,EQV
+*ASK,_go,Raw stress shown. OK for stent plastic strain,1
+/TITLE,Step 4 full expansion - stent plastic strain
+PLNSOL,EPPL,EQV
+ALLSEL,ALL
+*ASK,_go,Plastic strain shown. OK for plaque stress,1
+
+! plaque only (material 2 in the artery model)
+ESEL,S,MAT,,2
+/TITLE,Step 4 full expansion - plaque max principal stress (MPa)
+PLNSOL,S,1
+ALLSEL,ALL
+*ASK,_go,Plaque stress shown. OK for the last stored step (release),1
+
+! =====================================================================
+! 3. Last stored step (the release, where it converged)
+! =====================================================================
+SET,LAST
+*GET,_tlast,ACTIVE,0,SET,TIME
+ESEL,S,ENAME,,185
+/TITLE,Last step (TIME %_tlast%) - total displacement (mm)
+PLNSOL,U,SUM
+ALLSEL,ALL
+*ASK,_go,Displacement shown. OK for stent stress after release,1
+
+*IF,_ctyp,EQ,2,THEN
+  CMSEL,S,STENT_ALL
+*ELSEIF,_ctyp,EQ,1,THEN
+  CMSEL,S,STENT_ALL
+  ESLN,S,1
+  ESEL,R,ENAME,,185
+*ELSE
+  ESEL,S,ENAME,,185
+*ENDIF
+/TITLE,Last step (TIME %_tlast%) - stent von Mises, smoothed at nodes (MPa)
+PLNSOL,S,EQV
+*ASK,_go,Smoothed stress shown. OK for raw element stress,1
+/TITLE,Last step (TIME %_tlast%) - stent von Mises, raw element values (MPa)
+PLESOL,S,EQV
+*ASK,_go,Raw stress shown. OK for stent plastic strain,1
+/TITLE,Last step (TIME %_tlast%) - stent plastic strain
+PLNSOL,EPPL,EQV
+ALLSEL,ALL
+*ASK,_go,Plastic strain shown. OK for plaque stress,1
+
+ESEL,S,MAT,,2
+/TITLE,Last step (TIME %_tlast%) - plaque max principal stress (MPa)
+PLNSOL,S,1
+ALLSEL,ALL
+
+/TITLE,

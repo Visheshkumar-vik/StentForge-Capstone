@@ -1,0 +1,12 @@
+# except the release (LS5) is spread over 10x the time: 1e-2 s instead of 1e-3 s (the release ends at TIME 4.01
+# instead of 4.001). Quasi-static transient as before, so the kinetic-energy gate (KENE+AENE)/SENE <= 1 % still
+# applies and still decides. One value, no other change. Used only on designs where relA2 failed (branch tool).
+extends: physics_v3_L7_relA2
+lineage: physics_v3_L7_relA2slow
+description: 'RelA2 with the release spread over 10x the time (LS5 1e-2 s, ends TIME 4.01).'
+v3:
+  release_route:
+    name: relA2slow
+  solver:
+    qs_step_duration_s:
+      release: 1.0e-2

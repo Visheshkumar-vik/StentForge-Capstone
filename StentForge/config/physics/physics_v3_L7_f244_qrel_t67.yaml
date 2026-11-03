@@ -1,0 +1,16 @@
+# ftoln_artery 0.2, stall watchdog off, 20 stored expand sets, restart every 20 substeps) with ONLY THE RELEASE solved
+# as a quasi-static transient (v3.solver.quasi_static_steps [release]; 1e-3 s physical duration, W-12) + the
+# their v3 static controls (S1 STABILIZE; expand CONSTANT DAMPING 1e-2 + REDUCE) as TIMINT,OFF steps inside the one
+# ANTYPE,TRANS analysis.  Gates: S2 STEN/SENE <= 1 % over the stabilised sets AND KE/SENE <= 1 % over the release
+# sets.  NOT MEASURED coupled before this lineage.
+extends: physics_v3_L7_f244
+lineage: physics_v3_L7_f244_qrel_t67
+description: 'Qrel, L7, 2.44 mm: F2 config (damped static expand) + 1 ms quasi-static transient release only + plaque tangent 0.0067 MPa.'
+artery:
+  plaque_plastic_tangent_MPa: 0.0067
+v3:
+  solver:
+    quasi_static_transient: true
+    quasi_static_steps: [release]
+    qs_step_duration_s:
+      release: 1.0e-3

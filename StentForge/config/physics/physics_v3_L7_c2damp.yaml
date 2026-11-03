@@ -1,0 +1,11 @@
+# physics_v3_L7_camp244b + the relA2 release) PLUS the SAME contact stabilisation damping switched on for the whole
+# expand (LS4) as well: CNKMOD,<ET>,15,2 on the two expander pairs (ET 8, 9) and the stent-artery pairs (ET 4), issued
+# at the start of LS4 and again at the start of LS5 (and whenever a run restarts in either); FDMN/FDMT at MAPDL's
+# defaults (not issued). No other change, no alternative value. Energy gate counts AENE (inherited from relA).
+extends: physics_v3_L7_relA2
+lineage: physics_v3_L7_c2damp
+description: 'RelA2 + the same contact stabilisation damping (KEYOPT(15)=2) on the same pairs in the expand (LS4).'
+v3:
+  release_route:
+    name: c2damp
+    steps: [expand, release]

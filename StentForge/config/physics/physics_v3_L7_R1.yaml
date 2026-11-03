@@ -1,0 +1,12 @@
+# physics_v3_L7_f244 (F2's exact config: L7 lesion, expander 2.44 mm, nropt_unsym + ftoln_artery 0.2) with ONE change:
+# the plaque card is Cunnane 2015's PUBLISHED law, the 3-term Yeoh fit to Loree 1994 hypocellular plaque
+# (doi:10.1186/1475-925X-14-S1-S7 Tables 3-4; C10 0.220, C20 0.509, C30 0.619 MPa; D1 0.004545 1/MPa = A6 K 1000 mu0),
+# i.e. the SPEC M8 card plaque_cunnane_hypo. The default composes the same Yeoh with J2 perfect
+# plasticity at 0.67 MPa, which Cunnane 2015 reports as the hypocellular ULTIMATE (failure) stress, not a yield stress.
+# The only route-b card of this side lineage (no card shopping, no parameter tuning). Side lineage only: never pooled
+# Reverse: delete this file.
+extends: physics_v3_L7_f244
+lineage: physics_v3_L7_R1
+description: 'W-R6 side lineage R1 (route b), L7, 2.44 mm: F2 config + Cunnane 2015 hyperelastic plaque as published (plaque_cunnane_hypo).'
+artery:
+  plaque_card: plaque_cunnane_hypo

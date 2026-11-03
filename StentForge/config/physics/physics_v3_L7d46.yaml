@@ -1,0 +1,13 @@
+# 35 AEST (birth clearance), FALLBACK LESION -- used ONLY if the rule fires: F1/F2
+# (sine_fea_035) overlap the 48 % lumen at birth, or > 25 % of the first 8 campaign designs are
+# GEOMETRY_INFEASIBLE_AT_BIRTH. The same ASOCA Diseased_20 L7 lesion at its surface-mesh narrowing (Jignesh
+# Makineni's measurement): 46 % DS -> area 1 - 0.54^2 = 0.708, throat r = 1.22 x 0.54 = 0.659 mm. Length kept at
+# 5.0 mm (a raised cosine with 46 % peak narrowing has 0.472 L above 25 %: 2.3 mm -> 4.87 mm, rounds to 5.0).
+extends: physics_v3_L7
+lineage: physics_v3_L7d46
+description: 'physics_v3 on the idealised ASOCA Diseased_20 L7 lesion at its surface-mesh narrowing (46 % DS / 70.8 % area, RVD 2.44 mm).'
+artery:
+  stenosis_area: 0.7084
+  stenosis_label: "46 % DS / 70.8 % area"
+  lesion_tag: asoca_d20_L7_idealised_d46_v1
+  lesion_label: "idealised lesion fitted to ASOCA Diseased_20 L7, surface-mesh narrowing (46 % DS / 70.8 % area, RVD 2.44 mm)"

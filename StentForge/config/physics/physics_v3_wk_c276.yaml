@@ -1,0 +1,14 @@
+# (the equivalence reference for any 2.76 mm config; itself a 2.76 mm proof candidate). Only the 5A run
+# settings differ from physics_v3 (restart every 20 substeps, 20 stored expand sets, stall watchdog OFF).
+extends: physics_v3
+lineage: physics_v3_wk_c276
+description: 'V3-defaults control, expander 2.76 mm.'
+v3:
+  expander:
+    od_mm: 2.76
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20

@@ -1,0 +1,14 @@
+# campaign lineage physics_v3_L7_camp244b + contact stabilisation damping switched ON at the start of LS5 (release) on
+# the two expander pairs: CNKMOD,<ET>,15,2 (CONTA174 KEYOPT(15)=2, damping active in every load step; FDMN/FDMT at
+# MAPDL's defaults, not issued). LS1-LS4 unchanged. Energy gate counts AENE (contact stabilisation energy).
+extends: physics_v3_L7_camp244b
+lineage: physics_v3_L7_relA
+description: 'Camp244b + contact stabilisation damping (KEYOPT(15)=2 via CNKMOD) on the expander pairs in LS5.'
+v3:
+  release_route:
+    name: relA
+    kind: contact_damping
+    pairs: [expander]
+    keyopt15: 2
+  gates:
+    ke_sene_counts_aene: true

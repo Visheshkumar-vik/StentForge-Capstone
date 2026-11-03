@@ -1,0 +1,19 @@
+# physics_v2_arm2 -- 5A ARM 2: physics_v2 WITHOUT friction, so that
+# fallback rule needs ("if Arm 3 misses and Arm 2 hits, Arm 2 is production and
+# friction becomes a sensitivity").
+#
+# physics_v2 crimp".
+# STABILIZE 1.0e-4, CNVTOL pinned, 0.65 mm wall, 10 mm lesion, D1 per material)
+# are bundled into Arm 2 here rather than into Arm 3, because a solved crimp with
+# the full-integration element and the bilinear card would be a third physics
+# thing.  Arm 2 vs Arm 1 therefore measures the physics_v2 package with the
+# crimp as its dominant change; Arm 3 vs Arm 2 measures friction.
+extends: physics_v2
+lineage: physics_v2_arm2
+prereg: P-017-PENDING
+description: physics_v2 with the stent-artery friction coefficient set to 0 (no ramp).
+
+coupled:
+  contact:
+    mu: 0.0
+    mu_ramp: false

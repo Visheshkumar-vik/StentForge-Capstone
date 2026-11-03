@@ -1,0 +1,7 @@
+# 0.0067 if Newton stalls (recorded in the result)"; key artery.plaque_plastic_tangent_fallback_MPa 0.0067). Every
+# implicit release so far fails on plaque distortion (a Newton stall in the plaque): the recorded fallback applies.
+extends: physics_v3_L7_f244
+lineage: physics_v3_L7_f244_t67
+description: 'L7, 2.44 mm: F2 config + plaque tangent fallback 0.0067 MPa.'
+artery:
+  plaque_plastic_tangent_MPa: 0.0067

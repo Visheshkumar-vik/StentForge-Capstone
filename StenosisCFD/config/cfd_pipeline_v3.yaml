@@ -1,0 +1,64 @@
+# physics_v3 CFD PIPELINE settings (fallback pipeline; 28 Sep 2026).
+# Kept OUT of the lineage yamls on purpose: the frozen lineage physics_v3_L7_camp244b (and its config sha)
+# is untouched.  Inflows, blood constants, R0 and the WSS thresholds still come from the lineage
+# (cfd_v3_config.load); this file holds only what the pipeline adds.  A mesh-study result drops in
+# here as a VALUE change.  Read by cfd_v3_config.load_pipeline (strict: a missing key raises).
+
+mesh:
+  # ONE sizing rule for the blocked and the stented lumen: the surface max size follows the
+  # throat radius of THE lumen being meshed (lineage R0), clamped; min = max / ratio.
+  rule: throat_adapted
+  cells_per_throat_radius: 3.42      # C2 calibration (cfd_severity_sweep.CELLS_PER_THROAT_R)
+  max_size_cap_mm: 0.35
+  max_size_floor_mm: 0.12
+  max_to_min_ratio: 4.4
+  growth_rate: 1.2
+  curvature_normal_angle_deg: 18.0
+  prism_layers: 4
+  prism_transition_ratio: 0.272
+  prism_growth_rate: 1.2
+  volume_fill: poly-hexcore
+  strut:
+    # Fixed before the first strut mesh: surface size on strut faces at most
+    # 1/4 of the design's smaller strut dimension (width or wall thickness); prism layers on artery AND
+    # strut walls; growth 1.2.
+    face_size_fraction_of_min_strut_dim: 0.25
+    growth_rate: 1.2
+    prism_layers_on_strut_walls: 4
+    # 28 Sep (MEASURED): the 26.1 scoped-prism TUI refuses smooth-transition, so the strut mesher's first prism
+    # layer is set by aspect ratio (found as a mesh read-back mismatch). Read by
+    # tools/cfd_struts_v3.py; before 29 Sep these were code constants with the same values.
+    prism_method: aspect-ratio
+    prism_first_aspect_ratio: 5.0
+
+flow_models:
+  # The model pairing is an explicit choice, never a rule outcome.  A pairing
+  # Fluent rejects hard-fails with Fluent's own message; there is no fallback to another model.
+  production:
+    viscosity: carreau               # constants: cfd_config.BloodCarreau (Cho & Kensey 1991), checked
+    turbulence: laminar
+  blocked_sensitivity:
+    viscosity: newtonian
+    mu_pa_s: 0.00345                 # the Carreau infinite-shear value
+    turbulence: transition-sst-kw
+
+stages:
+  blocked: [production, blocked_sensitivity]
+  stented_no_strut: [production]
+  stented_struts: [production]
+
+domain:
+  stented_no_strut: quarter          # the lane default for the opened lumen (27 Sep); blocked from the lineage flag
+
+zone_area:
+  # The 27 Sep cap waiver, kept EXACTLY as written (proof_cfd_run.check_zone_areas_caps): a cap (inlet /
+  # outlet) that misses the zone-area budget passes only if the two caps agree within 0.5 % AND sit
+  # within 10 % of the expected cap area.  Applied to every case, logged in the case record.
+  cap_pair_agreement: 0.005
+  cap_vs_expected: 0.10
+
+convergence:
+  # the 27 Sep rule: residual target (lineage/lane SolverControls) AND inlet-pressure flat within
+  # dp_flat_tol_pa over dp_flat_window iterations, by continued iteration under the same cap
+  dp_flat_window: 20
+  dp_flat_tol_pa: 0.05

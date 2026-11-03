@@ -1,0 +1,19 @@
+# .
+# v3 defaults + the race's two winners together (nropt_unsym + ftoln_artery 0.2; the pair
+# is NOT MEASURED together before this run) + the 5A run settings (restart every 20
+# substeps, 20 stored expand sets, stall watchdog OFF: these are measurements).
+extends: physics_v3
+lineage: physics_v3_wk_f300
+description: 'Expander 3.00 mm, nropt_unsym + ftoln_artery 0.2.'
+v3:
+  expander:
+    od_mm: 3.00
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20
+  speed:
+    nropt_unsym: true
+    ftoln_artery: 0.2

@@ -1,0 +1,19 @@
+# (G7: crimp, crimp_release, expand, release) on the repo sine surrogate of Wiesent V1
+# (docs/physics_v3/sec7/params/sec7_wiesent_v1.json = StentForge/vandv40/wiesent.py::wiesent_v1_params).
+# Card = the physics_v3 default 316L_Wiesent_ext (Wiesent's own Table 2 card, M2). Only the device's
+# load path differs from physics_v3:
+#   as-cut OD 1.97 mm  -- Wiesent 2019 doi:10.1371/journal.pone.0224026 "initial outer diameter" 1.97 mm
+#   crimp to 1.17 mm   -- Wiesent 2019: jaws close the stent to 1.17 mm (1.20 sim / 1.19 +/- 0.02 exp after crimp recoil)
+#   expander 3.50 mm   -- Wiesent 2019 DC case: rigid cylinder "final diameter D of 3.5 mm", its outer surface on
+#                         the stent INNER surface; v3.expander.od_mm is the same thing (stent ID at the hold)
+# Pass rule written before any run: out/physics_v3/wkend/agent_reports/sec7.md s2.
+extends: physics_v3
+lineage: physics_v3_wk_wiesent
+description: 'Wiesent 2019 V1 Tier-1 in-air re-run (as-cut 1.97, crimp 1.17, expander 3.50 mm).'
+stent:
+  as_cut_od_mm: 1.97
+crimp:
+  target_od_mm: 1.17
+v3:
+  expander:
+    od_mm: 3.50

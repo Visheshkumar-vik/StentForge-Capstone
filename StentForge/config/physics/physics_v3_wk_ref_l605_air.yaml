@@ -1,0 +1,10 @@
+# the IN-AIR chain (G7), card switch only. Paired with the same design under plain physics_v3 (316L_Wiesent_ext),
+# so the pair differs in ONE key (stent.material_card) and isolates the card's effect on crimp springback,
+# acute recoil and foreshortening. Reference design: in NO training or held-out set.
+#   stent.material_card: L605_Grogan (materials_v3 M3; Grogan 2012 doi:10.1016/j.jmbbm.2012.02.013,
+#   Zenodo doi:10.5281/zenodo.11184001)
+extends: physics_v3
+lineage: physics_v3_wk_ref_l605_air
+description: 'S7 item 3b: thin-wall L605 reference design, in-air chain, card L605_Grogan (else physics_v3).'
+stent:
+  material_card: L605_Grogan

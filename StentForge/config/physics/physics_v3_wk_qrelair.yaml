@@ -1,0 +1,13 @@
+# base, expander 3.00 mm) + quasi_static_transient true + quasi_static_steps [release] + stall watchdog off.  crimp /
+# crimp_release / expand keep their static controls as TIMINT,OFF steps inside ANTYPE,TRANS; only the release is
+# TIMINT,ON + TINTP,QUAS (1 s, the parent physics_v3_wk_quasair's duration).  A MEASUREMENT: does MAPDL accept it and
+# do the static-step results equal the static in-air run?
+extends: physics_v3
+lineage: physics_v3_wk_qrelair
+description: 'Qrel in-air smoke: physics_v3 + quasi-static transient release only (static steps TIMINT,OFF).'
+v3:
+  stall:
+    enabled: false
+  solver:
+    quasi_static_transient: true
+    quasi_static_steps: [release]

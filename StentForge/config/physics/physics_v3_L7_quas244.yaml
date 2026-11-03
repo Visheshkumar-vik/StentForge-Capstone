@@ -1,0 +1,22 @@
+# lesion: the 5A run settings of physics_v3_L7_f244 (restart every 20
+# substeps, 20 stored expand sets, stall watchdog OFF, nropt_unsym + ftoln_artery 0.2) with the LOADED steps
+# (crimp, crimp_release, expand, release) solved as a QUASI-STATIC TRANSIENT: ANTYPE,TRANS + TRNOPT,FULL,
+# TIMINT,ON, TINTP,QUAS, no STABILIZE, real densities (MP,DENS), KE/SENE <= 1 % per stored set.  The birth
+# stays static (TIMINT,OFF).  Expander 2.44 mm (FALLBACK).  NOT MEASURED coupled before this lineage.
+extends: physics_v3_L7
+lineage: physics_v3_L7_quas244
+description: 'L7 lesion: quasi-static transient (TINTP,QUAS) loaded steps, expander 2.44 mm (FALLBACK), nropt_unsym + ftoln_artery 0.2.'
+v3:
+  expander:
+    od_mm: 2.44
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20
+  speed:
+    nropt_unsym: true
+    ftoln_artery: 0.2
+  solver:
+    quasi_static_transient: true

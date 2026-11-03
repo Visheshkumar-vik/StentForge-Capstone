@@ -1,0 +1,9 @@
+# held-out set and never given to any surrogate (design ref_l605_thin80, docs/physics_v3/sec7/params/).
+# every 20 substeps, 20 stored expand sets, stall watchdog OFF) except ONE key: the stent card.
+#   stent.material_card: L605_Grogan (materials_v3 M3; Grogan 2012 doi:10.1016/j.jmbbm.2012.02.013, Zenodo
+#   doi:10.5281/zenodo.11184001). material_card_corpus is left at 316L_Wiesent_ext (not read by the v3 driver).
+extends: physics_v3_wk_f300
+lineage: physics_v3_wk_ref_l605_300
+description: 'Thin-wall L605 reference design, coupled, card L605_Grogan on physics_v3_wk_f300.'
+stent:
+  material_card: L605_Grogan

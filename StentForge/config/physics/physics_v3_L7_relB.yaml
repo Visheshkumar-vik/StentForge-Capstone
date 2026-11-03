@@ -1,0 +1,19 @@
+# campaign lineage physics_v3_L7_camp244b with LS5 split into release_hold (UX held on every node of the expander
+# CONTA sets + EKILL of both expander pairs, 1e-4 s, stepped), release_handover (the hold replaced by its radial
+# reaction force, 1e-4 s, stepped) and release (that force ramped to zero, 8e-4 s). Total release 1 ms, quasi-static
+# transient as frozen. LS1-LS4 unchanged. Energy gate counts AENE.
+extends: physics_v3_L7_camp244b
+lineage: physics_v3_L7_relB
+description: 'Camp244b with the expander removed at the start of LS5 (hold + EKILL), then its reaction ramped to zero.'
+v3:
+  plan: [crimp, crimp_release, birth, expand, release_hold, release_handover, release]
+  release_route:
+    name: relB
+    kind: expander_removal
+  solver:
+    qs_step_duration_s:
+      release_hold: 1.0e-4
+      release_handover: 1.0e-4
+      release: 8.0e-4
+  gates:
+    ke_sene_counts_aene: true

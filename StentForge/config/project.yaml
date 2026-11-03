@@ -1,0 +1,51 @@
+# StentForge central project configuration.
+#
+# Every value here equals the hardcoded default in the code, so this file is
+# documentation-as-config: deleting it changes nothing (built-in defaults are
+# identical), and editing a value here changes it EVERYWHERE it is used.
+#
+# Overrides, strongest first:
+#   $STENTFORGE_CONFIG   -> use a different yaml file entirely
+#   $STENTFORGE_RESULTS  -> results root (beats paths.results_root)
+#   CLI flags (--crimp, --expand, --target-od, --backend, ...) beat everything.
+
+paths:
+  # null -> <StentForge>/results_fea (repo-relative; never bake an absolute
+  # path into this synced file -- set $STENTFORGE_RESULTS per machine instead).
+  results_root: null
+
+fea:
+  crimp:
+    fraction: 0.30        # contact-sheath crimp of the outer RADIUS (default method)
+    disp_fraction: 0.15   # disp-method crimp of the outer DIAMETER
+    method: contact       # contact | pressure | disp
+  deploy:
+    expand_frac: 0.30     # mandrel inner-radius expansion fraction
+    target_od: 3.4        # deployed outer diameter (mm), campaign default
+
+# Mirror of StenosisCFD.cfd_config.BaselineConfig (cross-checked by a test;
+# StenosisCFD itself stays import-independent of stentforge).
+cfd:
+  r0_mm: 1.38
+  length_mm: 25.0
+  stenosis: 0.25
+  quarter: true
+  inlet_velocity: 0.5     # m/s (peak-systolic mean)
+  outlet_pressure: 0.0    # Pa gauge
+
+hpc:
+  backend: local          # local | slurm | pbs  (slurm/pbs are DRY-RUN TESTED ONLY)
+  resources:              # defaults for one FEA solve
+    nodes: 1
+    cpus: 1
+    mem_gb: 4
+    walltime: "02:00:00"
+
+# Job-level checkpoint/restart (H2).  DEFAULT OFF -- with enabled:false the FEA
+# solve is byte-for-byte the pre-H2 path (no RESCONTROL, no resume, no marker).
+# Turn on here, or per run with $STENTFORGE_RESTART=1 ($STENTFORGE_RESTART_FREQ
+# overrides the frequency).  VALIDATE-ON-FIRST-CRASH: the real MAPDL crash->resume
+# has not yet been exercised (built + unit-tested with a mocked solver only).
+restart:
+  enabled: false          # true -> a crashed solve RESUMES from its last checkpoint
+  frequency: LAST         # LAST = a restart file per load step; an int k = every k substeps

@@ -1,0 +1,13 @@
+# 2.44 mm candidate whose config passes (i) by construction). Only the 5A run settings differ from physics_v3_L7.
+extends: physics_v3_L7
+lineage: physics_v3_L7_c244
+description: 'L7 lesion: v3-defaults control, expander 2.44 mm.'
+v3:
+  expander:
+    od_mm: 2.44
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20

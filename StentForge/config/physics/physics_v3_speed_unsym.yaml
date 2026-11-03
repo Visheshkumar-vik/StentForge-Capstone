@@ -1,0 +1,13 @@
+# speed options are config switches, defaults = the physics_v2 values, and the campaign workstation speed race
+# on the expand picks the winners).  Identical to physics_v3 except ONE switch under
+# v3.speed (nropt_unsym: true).  Its results carry this lineage name and are never pooled with
+# physics_v3 or another speed child; it inherits result_status PENDING_DECISION.
+extends: physics_v3
+lineage: physics_v3_speed_unsym
+description: >
+  physics_v3 with ONE speed switch: NROPT,UNSYM in the expand (the frictional stent-artery contact makes the
+  tangent unsymmetric; every later step restores NROPT,FULL).
+  Everything else exactly as physics_v3.
+v3:
+  speed:
+    nropt_unsym: true                      # S4 switch under test (physics_v3: false); MAPDL NROPT command reference

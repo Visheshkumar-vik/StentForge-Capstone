@@ -1,0 +1,15 @@
+# chain expanded to 3.50 mm (Samant 2021 doi:10.1038/s41598-021-87908-2: bench expansion "from 3.5 to 5.0 mm
+# (blind analysis)"; the computational model expands to the INNER diameter, as v3.expander.od_mm does).
+# BLOCKED (not launchable, MEASURED 25 Sep): the 9/10/12-peak sine surrogates are refused by the v3 half-model
+# mesher (mirror plane needs sine_N_CONNECTORS >= N_CROWNS/2 = 5/5/6, outside SAFE_RANGES_SINE [3, 4]), and the
+# in-air chain has no 15 % re-crimp step (the bench quantity is the normalised hoop force). See
+# out/physics_v3/wkend/agent_reports/sec7.md s1. Kept ready for the day both are ruled/implemented.
+# Card: physics_v3 default 316L_Wiesent_ext (PtCr card not in the repo; E 200 GPa ~ PtCr 203 GPa: assumption,
+# same card on all three variants, so only the ORDER is compared, never an absolute force).
+# As-cut OD: MEGATRON's tube OD is not reported -> physics_v3 G1 default 1.90 mm (assumption).
+extends: physics_v3
+lineage: physics_v3_wk_meg350
+description: 'MEGATRON rank-order comparator, in-air, expander 3.50 mm (BLOCKED at the mesher).'
+v3:
+  expander:
+    od_mm: 3.50

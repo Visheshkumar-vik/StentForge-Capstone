@@ -1,0 +1,15 @@
+extends: physics_v2_predil
+lineage: physics_v2_predil_damp
+prereg: P-017-PENDING
+description: >
+  DIAGNOSTIC (24 Sep 2026, decision 7): physics_v2_predil in every respect, except that
+  every load step after the crimp that carries stabilization uses a PINNED damping factor
+  (STABILIZE,CONSTANT,DAMPING,1e-2) instead of the energy ratio.  MEASURED 24 Sep: the
+  energy ratio 1e-4 derives 1.9e-3..2.5e-2 in the expand of the lineage without a solved
+  crimp (nine designs, converging), 2.8e6..1.7e7 under physics_v2 (eleven expands failed)
+  and 2.0e16..2.3e19 under physics_v2_predil (failed earlier still); the pinned value is the
+  one the converging lineage computed for itself.  Asks one question: with the lesion
+  predilated as in Arm 1 and the damping as in Arm 1, does the solved 63 % crimp alone
+  stop the expand?  Reported under its own name, never pooled.
+coupled:
+  stabilize_damping_after_crimp: 1.0e-2   # STABILIZE,CONSTANT,DAMPING for predilate/deflate/contact/expand; crimp + release keep ENERGY

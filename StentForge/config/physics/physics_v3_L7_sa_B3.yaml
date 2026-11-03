@@ -1,0 +1,34 @@
+# Child of the frozen C1 physics_v3_L7_relA2; ONLY the release changes:
+#   LS5 release_hold       the relB hold step (same name: KBC 1, stepped): D,UX on every STENT_INNER node at its
+#                          current RADIAL displacement (coupled_v3._route_b_hold_radial_mm, the converged relB hold),
+#                          and EKILL of ONLY the expander-stent pair (ET 7 + 8 with REAL 4); the expander-artery
+#                          pair stays alive and the expander stays at r_final. Tissue nodes are never held.
+#   LS6..LS111             release_peel_001 .. release_peel_106, and LS112 release: 107 mini steps (KBC 0, ramped).
+#                          Mini step k: DDELE,<n>,UX on the nodes whose radial reaction was <= 0 after the previous
+#                          SOLVE, D,<n>,UX = u_r0 - k x 0.01 mm on every node still held, EXPANDER_N to
+#                          r_final - k x 0.01 mm. 107 x 0.01 mm = 1.07 mm = r_final 1.22 - r_e0 0.15 (checked in
+#                          plan_v3 and again by the driver against the built geometry): 'release' parks the expander
+#                          at r_e0 (UX 0) and ends at TIME 4.001.
+#   TIME: hold 1e-4 s (relB's), the 107 mini steps share 9e-4 s evenly (8.411e-6 s each): LS5 ends at 4.0001, the
+#   release at 4.001 = relA2's release end, i.e. relA2's mean retraction speed (1.07 mm / 1 ms).
+#   Kept from relA2: quasi-static transient (TIMINT,ON + TINTP,QUAS, no STABILIZE) on every release step, NSUBST
+#   20,200,5 per step (the release table), relA2's contact damping CNKMOD,8/9/4,15,2 issued once at the start of
+#   LS5, energy gate counts AENE. qs_step_duration_s: null -- the release TIMEs come from release_route.peel only
+#   (LS1-LS4 end TIMEs unchanged: 1, 2, 3, 4).
+# NOT included (one change per arm): the CNOF/FKOP real-constant position.
+extends: physics_v3_L7_relA2
+lineage: physics_v3_L7_sa_B3
+description: 'Release side arm B3: relA2 with a displacement-controlled PEEL-OFF release (expander-stent pair killed, STENT_INNER held radially, 107 x 0.01 mm mini steps, a node released when its radial reaction leaves the outward sign; TIME 4.001).'
+v3:
+  plan: [crimp, crimp_release, birth, expand, release_hold, release]
+  release_route:
+    name: sa_B3
+    kind: peel_off
+    steps: [release_hold]
+    peel:
+      step_mm: 0.01
+      n_steps: 107
+      hold_duration_s: 1.0e-4
+      retract_duration_s: 9.0e-4
+  solver:
+    qs_step_duration_s: null

@@ -1,0 +1,13 @@
+extends: physics_v2
+lineage: physics_v2_predil
+prereg: P-017-PENDING
+description: >
+  DIAGNOSTIC (24 Sep 2026, decision 6): physics_v2 in every respect, except that the
+  lesion is ballooned to at least r = 1.268075 mm (the 23 Sep reference crimp radius,
+  2.536150 / 2) before the contact is born, and the balloon is withdrawn by deleting
+  its constraints (the wall recoils elastically) instead of being driven onto the
+  stent.  Asks one question: is it the un-predilated lesion or the strut mesh that
+  kills the physics_v2 expand?  Reported under its own name, never pooled.
+coupled:
+  predilate_min_radius_mm: 1.268075   # floor on r_predilated; physics_v2 proper has none (0)
+  deflate_mode: free                  # "drive" (physics_v1/v2: wall driven onto the stent) | "free" (DDELE, elastic recoil)

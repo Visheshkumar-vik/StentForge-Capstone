@@ -1,0 +1,14 @@
+# = physics_v3_race_unsym with the 5A run settings (20 stored expand sets). Probe P1/P2 add
+# their contact change on the restart through STENTFORGE_V3_RESUME_APDL (RMODIF), not here.
+extends: physics_v3
+lineage: physics_v3_wk_probe
+description: 'Race3 unsym keeper resumed; nropt_unsym; 5A run settings.'
+v3:
+  stall:
+    enabled: false
+  outres:
+    expand_sets: -20
+  restart:
+    expand_frequency: 20
+  speed:
+    nropt_unsym: true

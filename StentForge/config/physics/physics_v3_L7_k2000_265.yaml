@@ -1,0 +1,9 @@
+# physics_v3_L7_f265 (expander 2.65 mm PRIMARY, nropt_unsym + ftoln_artery 0.2, the 5A run settings) with
+# D1 = 2/(2000 mu0) on every hyperelastic tissue card (vessel Yeoh-6 and the plaque Yeoh-3 + BISO); every other line of
+# the command stream is that of physics_v3_L7_f265. A sensitivity arm, never a default. NOT MEASURED coupled before this lineage.
+extends: physics_v3_L7_f265
+lineage: physics_v3_L7_k2000_265
+description: 'L7 lesion: tissue K = 2000 mu0 (A6 default 1000), expander 2.65 mm (PRIMARY), nropt_unsym + ftoln_artery 0.2.'
+artery:
+  k_over_mu0: 2000.0
+  compressibility_rule: "K = 2000 x mu0 (A6 sensitivity arm; artery.k_over_mu0)"

@@ -1,0 +1,8 @@
+# rule OFF. Physics, solver, contact, material, mesh, outputs and restart settings IDENTICAL to the frozen lineage; the
+# runner's --max-hours. Never pooled with physics_v3_L7_camp244.
+extends: physics_v3_L7_camp244
+lineage: physics_v3_L7_camp244b
+description: 'Coupled campaign lineage 2: camp244 with the A11 projection off; hard cap 7.97 h via --max-hours.'
+v3:
+  stall:
+    enabled: false

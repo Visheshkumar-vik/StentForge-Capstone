@@ -1,0 +1,33 @@
+{
+  "tag": "L7",
+  "R0_mm": 1.22,
+  "RVD_mm": 2.44,
+  "wall_mm": 0.575,
+  "length_mm": 25.0,
+  "stenosis_area": 0.73,
+  "diameter_stenosis_pct": 48.04,
+  "lesion_len_mm": 5.0,
+  "throat_radius_mm": 0.6339305955702091,
+  "throat_diameter_mm": 1.2678611911404183,
+  "grid_per_quarter": [
+    16,
+    61,
+    7
+  ],
+  "sector_deg": 180,
+  "circumferential_divisions_half": 30,
+  "axial_spacing_mm": 0.4166666666666667,
+  "n_nodes": 13237,
+  "n_elem": 10800,
+  "n_plaque_elem": 660,
+  "n_vessel_elem": 10140,
+  "components": {
+    "ART_INNER": 1891,
+    "ART_OUTER": 1891,
+    "ART_SYMX": 854,
+    "ART_END0": 217,
+    "ART_END1": 217,
+    "ART_PIN": 1
+  },
+  "figure": true
+}

@@ -1,0 +1,114 @@
+# PRODUCED UNDER, as read from the code on 23-24 Sep 2026.  DEFAULT lineage.
+#
+# Nothing in this file is a recommendation.  It is a LABEL: it records what the
+# solver actually did (review 14_integration_code.md, MEASURED line by line), so
+# that anything reproducing those artefacts keeps reproducing them.  Do not edit
+# a value here to "fix" it -- fix it in physics_v2 and select that by name.
+lineage: physics_v1
+prereg: P-016
+description: >
+  The 23 Sep 2026 state of the pipeline: SS316L bilinear card in the coupled lane
+  (SimpleStent in the stent-only corpus), geometric radial-shift crimp to OD
+  2.536150 mm, contact live through predilatation with KEYOPT(9)=2, PINB +1.2 as
+  a FACTOR (resulting pinball 0.054 mm, MEASURED 24 Sep), STABILIZE 5.0e-3 in the
+  coupled load steps and OFF in release, CNVTOL unpinned, 0.50 mm artery wall,
+  8.28 mm lesion, frictionless everywhere.
+
+stent:
+  material_card: 316L                 # fea_crimp.SS316L: E 193000, nu 0.3, yield 300, Et 1100 (TB,BISO); uncited
+  material_card_corpus: SimpleStent   # the 87 labels: E 200000, yield 207, Et 692 (an Ansys tutorial deck)
+  hardening: bilinear_isotropic
+  keyopt2_coupled: 0                  # SOLID185 full integration (bare ET,2,185)
+  keyopt2_crimp: 0                    # shipped default; the corpus production ran an opt-in --solid-keyopt2 (review 02)
+  keyopt2_deploy: 0
+  mesh_min_across_strut: null         # not enforced; MEASURED 1-2 across (mesh_size = STRUT_WIDTH)
+  mesh_min_through_wall: 3            # DEFAULT_N_LAYERS
+
+fracture_screen:
+  peeq_screen: 0.40                   # register #17; UNSOURCED; the value the 87 labels were flagged with
+  operator: ">="
+  is_fracture_prediction: false
+
+crimp:
+  mode: geometric_shift               # coupled lane: uniform radial SHIFT of the corpus mesh, no solve
+  crimped_od_ref_mm: 2.536150         # section-6 reference held OD (sine_0049 crimp)
+  target_od_mm: null
+  sheath:                             # stent-only crimp lane (fea_crimp), for the record
+    conta: 173
+    fkn: 0.1
+    mu: 0.0
+    gap_mm: 0.02
+    keyopt5: 1
+    keyopt9: 1
+    stabilize_energy: 1.0e-4
+    stabilize_off_release: false      # STABILIZE stays ON through the release (review 09 problem 2)
+
+solver:
+  cnvtol_explicit: false              # MAPDL defaults, unpinned (may relax 1-1.66x)
+  cnvtol_force: [0.005, 2, 0.01]
+  cnvtol_disp: [0.05, 0]
+  ncnv: 2
+  ncnv_artery_lane: false             # fea_deploy_artery issued no NCNV (review 09 N8)
+  neqit_coupled: 60
+  nropt: FULL
+
+coupled:
+  stabilize_energy: 5.0e-3
+  stabilize_off_release: true
+  predilation_clearance_mm: 0.050
+  contact:
+    conta: 174
+    targe: 170
+    symmetric: true
+    fkn: 1.0
+    ftoln: 0.1
+    pinb_mode: factor                 # POSITIVE 1.2 = factor on element depth -> 0.054 mm (MEASURED)
+    pinb_value: 1.2
+    keyopt2: 0
+    keyopt4: 0
+    keyopt5: 0
+    keyopt9: 2                        # include initial penetration, ramped (env STENTFORGE_CONTACT_KEYOPT9 could override)
+    keyopt10: 2
+    keyopt12: 0
+    birth_after_predilatation: false  # contact LIVE while the balloon opens the lesion
+    mu: 0.0
+    mu_ramp: false
+    cncheck_detail: false
+  outres:
+    default: ALL                      # OUTRES,ALL,ALL every substep
+    per_step: {}
+  hold_inner_from_start: true         # D,STENT_INNER,UX,0 from LS0 (the 17 Aug mandrel hold)
+
+artery:
+  R0_mm: 1.38
+  segment_length_mm: 25.0
+  wall_thickness_mm: 0.50
+  lesion_length_mm: 8.28              # 3.0 lumen diameters
+  stenosis_area: 0.70
+  keyopt2: 0                          # B-bar full integration
+  keyopt6: 1                          # mixed u-P in the COUPLED lane (ETLIST, MEASURED 24 Sep); prescribed lane False
+  vessel_yeoh: [0.0088, -0.0026, 0.269]
+  plaque_yeoh: [0.0647, -0.757, 5.475]
+  d1_vessel: 0.05
+  d1_plaque: 0.05
+  vessel_label: "project calibration; provenance not found in the tree (review 06)"
+  plaque_label: "Yeoh fit to the Ansys stent-course hypocellular plaque test data (review 06/16)"
+
+qoi:
+  names: legacy                       # recoil_pct, dogboning_ratio, foreshortening_pct (as-cut reference), apposition 20 um
+  apposition_tol_mm: 0.020
+  emit_pct_diameter_stenosis: false
+
+cfd:
+  inflows_mps: [0.5]
+  inlet_profile: plug
+  upstream_extension_rule: none
+  downstream_rule: none
+  laminar: true
+  blocked_full_360: false
+  rho_kg_m3: 1050
+  rheology: "Carreau (Cho & Kensey 1991)"
+
+ranking:
+  weights: null
+  combiner: "PLACEHOLDER - DECISION REQUIRED"

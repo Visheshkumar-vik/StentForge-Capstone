@@ -1,0 +1,12 @@
+# = physics_v3_L7_quas244 (quasi-static transient loaded steps, real densities, no STABILIZE, expander 2.44 mm
+# FALLBACK, nropt_unsym + ftoln_artery 0.2, stall watchdog off) + the RELEASE solved over 1e-3 s instead of 1 s
+# (it ends at TIME 4.001; NSUBST keeps its counts 20/200/5 over the 1e-3 s).  Every other step, density,
+# tolerance, damping and the load path are unchanged.  A MEASUREMENT arm: quasi-static only if KE/SENE <= 1 %
+# at every stored set of every loaded step (v3.gates.ke_sene_max).  NOT MEASURED coupled before this lineage.
+extends: physics_v3_L7_quas244
+lineage: physics_v3_L7_quas244_r1ms
+description: 'W-12, L7 lesion: 5A(f) quasi-static transient, expander 2.44 mm (FALLBACK), release physical duration 1e-3 s.'
+v3:
+  solver:
+    qs_step_duration_s:
+      release: 1.0e-3

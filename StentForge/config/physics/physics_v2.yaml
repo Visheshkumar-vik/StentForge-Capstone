@@ -1,0 +1,122 @@
+# ONE named configuration.  This is 5A's Arm 3, the production candidate.
+#
+# Selected only by name (--physics physics_v2 or $STENTFORGE_PHYSICS_LINEAGE).
+# Any change to a value here after the
+# first campaign solve voids the campaign.
+extends: physics_v1
+lineage: physics_v2
+prereg: P-017-PENDING
+description: >
+  Wiesent 2019 316L multilinear card; PEEQ screen ln(1.40); solved continuous
+  crimp to OD 1.10 mm then release, deploy, release in one MAPDL session; contact
+  born after predilatation with KEYOPT(9)=0 and an absolute pinball; MU 0.2
+  ramped in after the birth step; STABILIZE 1.0e-4 in every loaded step and OFF
+  in every release; CNVTOL pinned; artery wall 0.65 mm, lesion 10.0 mm; D1 per
+  material from a stated nu0; KEYOPT(2)=2 on the stent; %DS beside every area
+  stenosis; hoop force full-ring / full-length.
+
+stent:
+  material_card: 316L-Wiesent         # Wiesent 2019 Table 2: E 200000, nu 0.3, Rp0.2 328, Rm 671, K 1440, n 0.39 (TB,PLAS,MISO)
+  material_card_corpus: 316L-Wiesent
+  hardening: multilinear_isotropic
+  keyopt2_coupled: 2                  # enhanced strain, crimp AND deploy (review 02)
+  keyopt2_crimp: 2
+  keyopt2_deploy: 2
+  mesh_min_across_strut: 4
+  mesh_min_through_wall: 4
+
+fracture_screen:
+  peeq_screen: 0.3364722366212129     # ln(1.40): ASTM F138 40 % elongation as true strain
+  operator: ">="
+  is_fracture_prediction: false
+
+crimp:
+  mode: solved_continuous             # crimp, release, deploy, release in ONE session from ONE mesh
+  crimped_od_ref_mm: null
+  target_od_mm: 1.10                  # real 3.0 mm systems 0.97-1.13 mm (Schmidt 2018)
+  sheath:
+    conta: 174                        # CONTA174/TARGE170 everywhere (review 08)
+    fkn: 0.1                          # bending-dominated band (ANSYS 0.01-0.1)
+    mu: 0.0                           # frictionless sheath kept
+    gap_mm: 0.02
+    keyopt5: 0                        # no auto CNOF (review N7)
+    keyopt9: 0
+    stabilize_energy: 1.0e-4
+    stabilize_off_release: true       # STABILIZE,OFF for the crimp release
+    nsubst: [200, 500000, 50]
+    nsubst_release: [50, 500000, 20]
+
+solver:
+  cnvtol_explicit: true               # CNVTOL,F,,0.005,2,0.01 and CNVTOL,U,,0.05,0 (pins the defaults; tighter)
+  ncnv: 2
+  ncnv_artery_lane: true
+
+coupled:
+  stabilize_energy: 1.0e-4            # ANSYS's recommended start value; ratio STEN/SENE recorded per load step
+  stabilize_off_release: true
+  stabilize_ratio_accept: 0.01        # SAG 8.11.1.2 (an example, not a law); above it a run is FLAGGED, never hidden
+  stabilize_in_zero_motion_steps: false   # MEASURED 24 Sep: CONSTANT/ENERGY damping factor 4.3e17 in a step with no motion (birth; no-load predilate/deflate) -> STABILIZE,OFF there
+  contact:
+    fkn: 1.0
+    ftoln: 0.1
+    pinb_mode: absolute               # NEGATIVE real constant = absolute mm
+    pinb_gap_factor: 1.5              # 1.5 x the largest expected initial gap
+    pinb_min_mm: 0.10
+    keyopt9: 0                        # at birth there is clearance: nothing to ramp
+    birth_after_predilatation: true   # EKILL through predilatation, EALIVE once the printed clearance is positive
+    mu: 0.2                           # nine published stent-artery models: 0.2-0.25
+    mu_ramp: true                     # TB,FRIC + TBFIELD,TIME: 0 at the end of birth, 0.2 by the end of deflate
+    cncheck_detail: true
+  outres:
+    default: LAST                     # every load step's last substep is always stored (the gates read those)
+    per_step:
+      crimp: -10                      # 10 equally spaced points through the crimp
+      expand: ALL                     # every substep: the force-radius curve
+  hold_inner_from_start: false        # the inner surface is held only after the crimp release, at its released radius
+
+artery:
+  wall_thickness_mm: 0.65             # Holzapfel 2005 ratio at our radius; He 2020 0.66
+  lesion_length_mm: 10.0              # modal idealised FEA lesion; clinical simple lesions 11.6 mm
+  stenosis_area: 0.70                 # kept; every output prints 45.2 % DS beside it
+  R0_mm: 1.38                         # Konigstein 2022 pooled RVD 2.76 mm
+  d1_vessel: 0.04546060686878962      # from nu0 0.4998 (K 43.99 MPa)
+  d1_plaque: 0.030932522763759074     # from nu0 0.499 (K 64.66 MPa)
+  nu0_vessel: 0.4998
+  nu0_plaque: 0.499
+  vessel_label: "project calibration, closest published set Xu 2016 adventitia"
+  plaque_label: "Yeoh fit to the Ansys stent-course hypocellular plaque test data"
+  report_plaque_jmin: true
+
+qoi:
+  names: physics_v2                   # acute_recoil_F2079type_pct, crimp_springback_frac_pct, end_to_mid_OD_ratio_held, foreshortening ref crimped (+ = shorter)
+  apposition_rule_um: 200             # Prati 2015; bands 100 / 300 um (Foin 2014)
+  apposition_bands_um: [100, 200, 300]
+  emit_pct_diameter_stenosis: true
+  hoop_force: "full ring / full length"
+  legacy_aliases_kept_for_one_release: true
+
+cfd:
+  inflows_mps: [0.10, 0.26]           # rest and hyperaemic
+  high_flow_sensitivity_mps: 0.5
+  inlet_profile: parabolic
+  upstream_extension_rule: "0.06 Re D"
+  downstream_rule: ">= 15 D throat to outlet"
+  laminar: true
+  print_reynolds: true
+  blocked_full_360: true
+  rho_kg_m3: 1050                     # Beier 2016
+  rheology: "Carreau (Cho & Kensey 1991)"
+  never_called_ffr: true
+  struts_not_resolved_note: true
+  gci_caveat_on_every_number: true
+
+ranking:
+  method: "optiSLang MOP with CoP; sensitivity per QoI; Pareto front over apposition, pct_diameter_stenosis, hoop force"
+  weights: null
+  combiner: "PLACEHOLDER - DECISION REQUIRED"
+
+clinical_thresholds:                  # PLACEHOLDERS with the literature value beside each; no gate uses them
+  residual_pct_diameter_stenosis_max: {placeholder: true, literature: {"ACC/AHA/SCAI 2011": 10.0, "ESC/EAPCI": 20.0}}
+  malapposition_um: {placeholder: true, literature: {"Prati 2015": 200}}
+  low_wss_pa: {placeholder: true, literature: {"Malek 1999": 0.4}}
+  ffr: {placeholder: true, literature: {"FAME": 0.80}}

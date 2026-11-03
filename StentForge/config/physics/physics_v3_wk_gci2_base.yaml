@@ -1,0 +1,8 @@
+# (the default A11 watchdog stopped the 4x4 run at TIME 2.39 of 3 at 23:43 -- a measurement lineage must not be
+# budget-stopped; the watchdog does not touch the solution, so levels stay comparable with the coarse run).
+extends: physics_v3_wk_gci_base
+lineage: physics_v3_wk_gci2_base
+description: 'S7.1 GCI study: in-air chain, stent mesh level base, stall watchdog off.'
+v3:
+  stall:
+    enabled: false

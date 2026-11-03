@@ -1,0 +1,7 @@
+# docs/physics_v3/sec7/params/), COUPLED, labelled reference, in NO training or held-out set. = physics_v3_L7_f265 with
+# ONE key changed: stent.material_card L605_Grogan (Grogan 2012 doi:10.1016/j.jmbbm.2012.02.013; Zenodo 11184001).
+extends: physics_v3_L7_f265
+lineage: physics_v3_L7_ref_l605_265
+description: 'L7 lesion: thin-wall L605 reference design, card L605_Grogan on physics_v3_L7_f265.'
+stent:
+  material_card: L605_Grogan

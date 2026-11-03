@@ -1,0 +1,12 @@
+# = physics_v3_L7_quas265 (quasi-static transient loaded steps, real densities, no STABILIZE, expander 2.65 mm
+# PRIMARY, nropt_unsym + ftoln_artery 0.2, stall watchdog off) + the RELEASE solved over 1e-2 s instead of 1 s
+# (it ends at TIME 4.01; NSUBST keeps its counts 20/200/5 over the 1e-2 s).  Inertia M/dt^2 is 100x smaller than
+# in the 1e-3 s arm at the same substep count; KE/SENE PREDICTED ~100x smaller.  A MEASUREMENT arm: quasi-static
+# only if KE/SENE <= 1 % at every stored set of every loaded step.  NOT MEASURED coupled before this lineage.
+extends: physics_v3_L7_quas265
+lineage: physics_v3_L7_quas265_r10ms
+description: 'W-12, L7 lesion: 5A(f) quasi-static transient, expander 2.65 mm (PRIMARY), release physical duration 1e-2 s.'
+v3:
+  solver:
+    qs_step_duration_s:
+      release: 1.0e-2

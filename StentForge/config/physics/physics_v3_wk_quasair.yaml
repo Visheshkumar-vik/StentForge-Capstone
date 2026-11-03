@@ -1,0 +1,12 @@
+# switch.  physics_v3 defaults (the static in-air reference out/physics_v3/in_air3 ran plain
+# physics_v3: expander 3.00 mm, no speed switches) + ONLY v3.solver.quasi_static_transient, so the
+# in-air QoIs compare one switch against the static result.  Stall watchdog OFF (a smoke check;
+# the wall cap is enforced outside the driver).
+extends: physics_v3
+lineage: physics_v3_wk_quasair
+description: 'Physics_v3 + quasi-static transient loaded steps only.'
+v3:
+  stall:
+    enabled: false
+  solver:
+    quasi_static_transient: true
